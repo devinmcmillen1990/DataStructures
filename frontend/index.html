@@ -23,14 +23,16 @@
   <script type="module" src="./queue/queue-command-ribbon.js"></script>
   <script type="module" src="./queue/queue-operations-window.js"></script>
   <script type="module" src="./queue/vec-purely-functional-queue-visual.js"></script>
+  <script type="module" src="./queue/vec-purely-functional-queue-pseudo-code-visual.js"></script>
 </head>
 
 <body>
   <h1>Purely Functional Queue Visualizer</h1>
 
   <queue-command-ribbon></queue-command-ribbon>
-  <queue-state-visual></queue-state-visual>
+  <vec-purely-functional-queue-visual></vec-purely-functional-queue-visual>
   <queue-operations-window></queue-operations-window>
+  <vec-purely-functional-queue-pseudo-code-visual-viewer></vec-purely-functional-queue-pseudo-code-visual-viewer>
 
   <script type="module">
     import init, { VecFunctionalQueueVisual } from './pkg/data_structures_wasm.js';
@@ -41,9 +43,13 @@
       const queue = new VecFunctionalQueueVisual();
       const ribbon = document.querySelector('queue-command-ribbon');
       const log = document.querySelector('queue-operations-window');
-      const visual = document.querySelector('queue-state-visual');
+      const visual = document.querySelector('vec-purely-functional-queue-visual');
+      const pseudo = document.querySelector('vec-purely-functional-queue-pseudo-code-visual-viewer');
 
       await Promise.all([log.ready, visual.ready]);
+
+      await pseudo.ready;
+      pseudo.setOperation('initial');
 
       function saveState(label = '') {
         const state = queue.state();
@@ -67,7 +73,20 @@
         }
       });
 
+      document.addEventListener('enqueue', (e) => {
+        queue.enqueue(e.detail);
+        saveState(`enqueue("${e.detail}")`);
+        pseudo.setOperation('enqueue');
+      });
+
+      document.addEventListener('dequeue', () => {
+        const val = queue.dequeue();
+        saveState(val !== null ? `dequeue() → "${val}"` : 'dequeue() → null');
+        pseudo.setOperation('dequeue');
+      });
+
       saveState("initial()");
+      pseudo.setOperation('initial');
     }
 
     main();
