@@ -67,4 +67,3 @@ class QueueCommandRibbon extends HTMLElement {
   }
   
   customElements.define('queue-command-ribbon', QueueCommandRibbon);
-  
