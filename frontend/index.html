@@ -62,20 +62,6 @@
       document.addEventListener('enqueue', (e) => {
         queue.enqueue(e.detail);
         saveState(`enqueue("${e.detail}")`);
-      });
-
-      document.addEventListener('dequeue', () => {
-        const val = queue.dequeue();
-        if (val !== null) {
-          saveState(`dequeue() → "${val}"`);
-        } else {
-          saveState(`dequeue() → null`);
-        }
-      });
-
-      document.addEventListener('enqueue', (e) => {
-        queue.enqueue(e.detail);
-        saveState(`enqueue("${e.detail}")`);
         pseudo.setOperation('enqueue');
       });
 

@@ -4,7 +4,6 @@ use serde::{Serialize, Deserialize};
 
 /*
     TODO:
-        5. Show Algorithm pseudo-code
         6. Show Original Source material
         7. Setup SEO to make this searchable.
 */

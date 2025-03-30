@@ -10,8 +10,8 @@ pub struct ListFunctionalQueue<T> {
 impl<T: Clone> ListFunctionalQueue<T> {
     pub fn new() -> Self {
         Self {
-            front: Rc::new(SinglyLinkedList::Empty),
-            rear: Rc::new(SinglyLinkedList::Empty),
+            front:  Rc::new(SinglyLinkedList::Empty),
+            rear:   Rc::new(SinglyLinkedList::Empty),
         }
     }
 

@@ -49,7 +49,7 @@ class QueueCommandRibbon extends HTMLElement {
         const isInputFocused = this.shadowRoot.contains(document.activeElement);
         const isInputEmpty = input.value.trim() === "";
   
-        if ((e.key === 'Backspace' || e.key === 'Delete') && (isInputEmpty || !isInputFocused)) {
+        if ((e.key === 'Delete') && (isInputEmpty || !isInputFocused)) {
           e.preventDefault();
           dequeueBtn.click();
         }
