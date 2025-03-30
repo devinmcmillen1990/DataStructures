@@ -10,20 +10,5 @@
     val head    : Queue → α         (raises EMPTY if queue is empty)
     val tail    : Queue → Queue     (raises EMPTY if queue is empty)
   end
-  
-  datatype Queue = Queue of α list * α list
-  
-  fun empty = Queue ([], [])
-  fun isEmpty (Queue (f, r)) = null f andalso null r
-  fun snoc (Queue (f, r), x) = checkf (Queue (f, x :: r))
-  
-  fun head (Queue ([], _)) = raise EMPTY
-    | head (Queue (x::_, _)) = x
-  
-  fun tail (Queue ([], _)) = raise EMPTY
-    | tail (Queue (_::f, r)) = checkf (Queue (f, r))
-  
-  fun checkf (Queue ([], r)) = Queue (rev r, [])
-    | checkf q = q
     </code></pre>
 </div>
