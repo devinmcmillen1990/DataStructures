@@ -1,7 +1,7 @@
 #[derive(Clone, Debug)]
 pub struct VecFunctionalQueue<T: Clone> {
-    front:  Vec<T>,
-    rear:   Vec<T>,
+    pub front:  Vec<T>,
+    pub rear:   Vec<T>,
 }
 
 impl<T: Clone> VecFunctionalQueue<T> {

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Purely Functional Queue Visualizer</title>
+</head>
+<body>
+  <h1>Purely Functional Queue Demo</h1>
+  <button id="enqueue">Enqueue A</button>
+  <button id="dequeue">Dequeue</button>
+  <pre id="output"></pre>
+
+  <script type="module">
+    import init, { VecFunctionalQueueVisual } from './pkg/data_structures_wasm.js';
+
+    async function main() {
+      await init();
+      const queue = new VecFunctionalQueueVisual();
+
+      const output = document.getElementById('output');
+
+      function render() {
+        output.textContent = JSON.stringify(queue.state(), null, 2);
+      }
+
+      document.getElementById('enqueue').addEventListener('click', () => {
+        queue.enqueue("A");
+        render();
+      });
+
+      document.getElementById('dequeue').addEventListener('click', () => {
+        const val = queue.dequeue();
+        console.log("Dequeued:", val);
+        render();
+      });
+
+      render();
+    }
+
+    main();
+  </script>
+</body>
+</html>
