@@ -2,6 +2,14 @@ use wasm_bindgen::prelude::*;
 use data_structures::queue::vec_functional_queue::VecFunctionalQueue;
 use serde::{Serialize, Deserialize};
 
+/*
+    TODO:
+        2. Instead of a vertical JSON array, it would be nice to have horizontal squares like contiguous memory
+        4. Add animations to show the queue working (disable buttons with animations)
+        5. Show Algorithm pseudo-code
+        6. Show Original Source material
+*/
+
 #[derive(Serialize, Deserialize)]
 pub struct QueueState {
     front: Vec<String>,

@@ -1,0 +1,52 @@
+.queue-ops-wrapper {
+    font-family: monospace;
+    background-color: #fdfdfd;
+    padding: 1em;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.queue-ops-header {
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+
+.queue-ops-current {
+    background: #f4f4f4;
+    padding: 1em;
+    margin-bottom: 1em;
+    border-radius: 4px;
+    white-space: pre-wrap;
+    font-size: 0.9rem;
+}
+
+.queue-ops-history-title {
+    margin-top: 1em;
+    font-size: 1rem;
+}
+
+.queue-ops-history {
+    max-height: 300px;
+    overflow-y: auto;
+    background: #fafafa;
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.queue-ops-entry {
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    border-bottom: 1px dashed #ccc;
+}
+
+.queue-ops-label {
+    font-weight: bold;
+    margin-bottom: 0.2em;
+}
+
+.queue-ops-json {
+    display: block;
+    white-space: pre-wrap;
+    font-size: 0.85rem;
+}
