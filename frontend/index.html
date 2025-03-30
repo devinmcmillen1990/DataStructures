@@ -5,19 +5,31 @@
   <meta charset="UTF-8" />
   <title>Purely Functional Queue Visualizer</title>
 
+  <!-- Optional styling for layout -->
   <style>
     body {
-      font-family: sans-serif;
-      margin: 2rem;
+      font-family: system-ui, sans-serif;
+      max-width: 800px;
+      margin: auto;
+      padding: 2rem;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
     }
   </style>
+
+  <!-- Import custom elements -->
+  <script type="module" src="./queue/queue-command-ribbon.js"></script>
+  <script type="module" src="./queue/queue-operations-window.js"></script>
+  <script type="module" src="./queue/vec-purely-functional-queue-visual.js"></script>
 </head>
 
 <body>
-  <h1>(Vec) Purely Functional Queue Demo</h1>
-  <script type="module" src="./queue/queue-command-ribbon.js"></script>
-  <script type="module" src="./queue/queue-operations-window.js"></script>
+  <h1>Purely Functional Queue Visualizer</h1>
+
   <queue-command-ribbon></queue-command-ribbon>
+  <queue-state-visual></queue-state-visual>
   <queue-operations-window></queue-operations-window>
 
   <script type="module">
@@ -26,43 +38,36 @@
     async function main() {
       await init();
 
-      let currentQueue = new VecFunctionalQueueVisual();
+      const queue = new VecFunctionalQueueVisual();
       const ribbon = document.querySelector('queue-command-ribbon');
-
       const log = document.querySelector('queue-operations-window');
-      await log.ready;
-      render();
+      const visual = document.querySelector('queue-state-visual');
 
-      function saveState(label) {
-        const state = JSON.parse(JSON.stringify(currentQueue.state()));
-        log.addEntry(label, state);
-      }
+      await Promise.all([log.ready, visual.ready]);
 
-      function render() {
-        const state = currentQueue.state();
+      function saveState(label = '') {
+        const state = queue.state();
         log.setCurrentState(state);
-        updateDequeueAvailability(state);
-      }
-
-      function updateDequeueAvailability(state) {
-        const isEmpty = state.front.length === 0 && state.rear.length === 0;
-        ribbon.setQueueEmptyState(isEmpty);
+        log.addEntry(label, state);
+        visual.update(state);
+        ribbon.setQueueEmptyState(state.front.length === 0 && state.rear.length === 0);
       }
 
       document.addEventListener('enqueue', (e) => {
-        currentQueue.enqueue(e.detail);
+        queue.enqueue(e.detail);
         saveState(`enqueue("${e.detail}")`);
-        render();
       });
 
       document.addEventListener('dequeue', () => {
-        currentQueue.dequeue();
-        saveState("dequeue()");
-        render();
+        const val = queue.dequeue();
+        if (val !== null) {
+          saveState(`dequeue() → "${val}"`);
+        } else {
+          saveState(`dequeue() → null`);
+        }
       });
 
       saveState("initial()");
-      render();
     }
 
     main();
