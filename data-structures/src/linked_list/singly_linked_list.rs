@@ -54,5 +54,5 @@ impl<T> SinglyLinkedList<T> {
             SinglyLinkedList::Empty => 0,
             SinglyLinkedList::Cons(_, tail) => 1 + tail.len(),
         }
-    }    
+    }
 }

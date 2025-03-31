@@ -1,17 +1,17 @@
-use std::rc::Rc;
 use crate::linked_list::singly_linked_list::SinglyLinkedList;
+use std::rc::Rc;
 
 #[derive(Clone, Debug)]
 pub struct ListFunctionalQueue<T> {
-    front:  Rc<SinglyLinkedList<T>>,
-    rear:   Rc<SinglyLinkedList<T>>,
+    front: Rc<SinglyLinkedList<T>>,
+    rear: Rc<SinglyLinkedList<T>>,
 }
 
 impl<T: Clone> ListFunctionalQueue<T> {
     pub fn new() -> Self {
         Self {
-            front:  Rc::new(SinglyLinkedList::Empty),
-            rear:   Rc::new(SinglyLinkedList::Empty),
+            front: Rc::new(SinglyLinkedList::Empty),
+            rear: Rc::new(SinglyLinkedList::Empty),
         }
     }
 
@@ -31,11 +31,14 @@ impl<T: Clone> ListFunctionalQueue<T> {
                     front: tail.clone(),
                     rear: self.rear.clone(),
                 };
-                Some((head.clone(), new_q.check(new_q.front.clone(), new_q.rear.clone())))
+                Some((
+                    head.clone(),
+                    new_q.check(new_q.front.clone(), new_q.rear.clone()),
+                ))
             }
             SinglyLinkedList::Empty => None,
         }
-    }    
+    }
 
     fn check(&self, front: Rc<SinglyLinkedList<T>>, rear: Rc<SinglyLinkedList<T>>) -> Self {
         if front.is_empty() {
@@ -46,5 +49,5 @@ impl<T: Clone> ListFunctionalQueue<T> {
         } else {
             Self { front, rear }
         }
-    }    
+    }
 }
