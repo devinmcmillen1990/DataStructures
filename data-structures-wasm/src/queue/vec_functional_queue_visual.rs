@@ -9,8 +9,8 @@ use serde::{Serialize, Deserialize};
 
 #[derive(Serialize, Deserialize)]
 pub struct QueueState {
-    front: Vec<String>,
-    rear: Vec<String>,
+    pub front: Vec<String>,
+    pub rear: Vec<String>,
 }
 
 #[wasm_bindgen]

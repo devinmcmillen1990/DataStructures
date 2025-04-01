@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Persistent Queue (Linked-List) | Solutions Archichat</title>
+  <meta name="title" content="Purely Functional Queue Visualizer | Solutions Archichat">
+  <meta name="description"
+    content="Visualize a purely functional queue using Chris Okasaki's method. Includes animations, real-time interaction, and the original pseudocode from the paper.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.solutionsarchichat.com/visualizations/purely-functional-queue-list.html">
+  <meta property="og:title" content="Purely Functional Queue Visualizer | Solutions Archichat">
+  <meta property="og:description"
+    content="Visualize a purely functional queue using Chris Okasaki's method. Includes animations, real-time interaction, and the original pseudocode from the paper.">
+  <meta property="og:image"
+    content="https://solutions-archichat-s3.s3.us-east-1.amazonaws.com/solutions_archi_chat_Icon.png">
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url"
+    content="https://www.solutionsarchichat.com/visualizations/purely-functional-queue-list.html">
+  <meta property="twitter:title" content="Purely Functional Queue Visualizer | Solutions Archichat">
+  <meta property="twitter:description"
+    content="Explore how purely functional queues work through interactive visuals and animations. Based on Chris Okasaki's original paper.">
+  <meta property="twitter:image"
+    content="https://solutions-archichat-s3.s3.us-east-1.amazonaws.com/solutions_archi_chat_Icon.png">
+  <link rel="canonical" href="https://www.solutionsarchichat.com/visualizations/purely-functional-queue-list.html" />
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Devin McMillen">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      max-width: 800px;
+      margin: auto;
+      padding: 2rem;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+    }
+  </style>
+
+  <script type="module" src="./core/solutions-archi-chat-button.js"></script>
+  <script type="module" src="./queue/queue-command-ribbon.js"></script>
+  <script type="module" src="./queue/queue-operations-window.js"></script>
+  <script type="module" src="./queue/list-purely-functional-queue-visual.js"></script>
+  <script type="module" src="./queue/list-purely-functional-queue-pseudo-code-visual.js"></script>
+</head>
+
+<body>
+  <solutions-archi-chat-button></solutions-archi-chat-button>
+  <h1>Persistent Queue Visualizer</h1>
+  <p>Linked List implementation of Purely Functional Queue.</p>
+  <queue-command-ribbon></queue-command-ribbon>
+  <purely-functional-queue-list-visual></purely-functional-queue-list-visual>
+  <queue-operations-window></queue-operations-window>
+  <purely-functional-queue-list-pseudo-code-visual-viewer></purely-functional-queue-list-pseudo-code-visual-viewer>
+
+  <script type="module">
+    import init, { ListFunctionalQueueVisual } from './pkg/data_structures_wasm.js';
+
+    async function main() {
+      await init();
+
+      const queue = new ListFunctionalQueueVisual();
+      const ribbon = document.querySelector('queue-command-ribbon');
+      const log = document.querySelector('queue-operations-window');
+      const visual = document.querySelector('purely-functional-queue-list-visual');
+      const pseudo = document.querySelector('purely-functional-queue-list-pseudo-code-visual-viewer');
+
+      await Promise.all([log.ready, visual.ready]);
+
+      function saveState(label = '') {
+        const state = queue.state();
+        log.setCurrentState(state);
+        log.addEntry(label, state);
+        visual.update(state);
+        ribbon.setQueueEmptyState(state.front.length === 0 && state.rear.length === 0);
+      }
+
+      document.addEventListener('enqueue', (e) => {
+        queue.enqueue(e.detail);
+        saveState(`enqueue("${e.detail}")`);
+      });
+
+      document.addEventListener('dequeue', () => {
+        const val = queue.dequeue();
+        saveState(val !== null ? `dequeue() → "${val}"` : 'dequeue() → null');
+      });
+
+      saveState("initial()");
+    }
+
+    main();
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "(List) Purely Functional Queue Visualizer",
+      "url": "https://www.solutionsarchichat.com/visualizations/purely-functional-queue-list.html",
+      "description": "An interactive visualization of a purely functional queue implemented with persistent data structures and real-time animations.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "All",
+      "author": {
+        "@type": "Person",
+        "name": "Devin McMillen"
+      }
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+.list-queue-visual {
+    padding: 1rem;
+    font-family: monospace;
+    background: #fdfdfd;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    max-height: 160px;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.queue-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.label {
+    padding-top: 30px;
+    width: 60px;
+    font-weight: bold;
+}
+
+.linked-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.node {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #add8e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    position: relative;
+}
+
+.arrow {
+    font-size: 1.2rem;
+    color: #888;
+}

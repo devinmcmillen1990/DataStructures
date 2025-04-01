@@ -3,12 +3,12 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>(Vec) Purely Functional Queue Visualizer | Solutions Archichat</title>
+  <title>Persistent Queue (Linked-List) | Solutions Archichat</title>
   <meta name="title" content="Purely Functional Queue Visualizer | Solutions Archichat">
   <meta name="description"
     content="Visualize a purely functional queue using Chris Okasaki's method. Includes animations, real-time interaction, and the original pseudocode from the paper.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.solutionsarchichat.com/visualizations/vec-purely-functional-queue.html">
+  <meta property="og:url" content="https://www.solutionsarchichat.com/visualizations/purely-functional-queue-vec.html">
   <meta property="og:title" content="Purely Functional Queue Visualizer | Solutions Archichat">
   <meta property="og:description"
     content="Visualize a purely functional queue using Chris Okasaki's method. Includes animations, real-time interaction, and the original pseudocode from the paper.">
@@ -16,13 +16,13 @@
     content="https://solutions-archichat-s3.s3.us-east-1.amazonaws.com/solutions_archi_chat_Icon.png">
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url"
-    content="https://www.solutionsarchichat.com/visualizations/vec-purely-functional-queue.html">
+    content="https://www.solutionsarchichat.com/visualizations/purely-functional-queue-vec.html">
   <meta property="twitter:title" content="Purely Functional Queue Visualizer | Solutions Archichat">
   <meta property="twitter:description"
     content="Explore how purely functional queues work through interactive visuals and animations. Based on Chris Okasaki's original paper.">
   <meta property="twitter:image"
     content="https://solutions-archichat-s3.s3.us-east-1.amazonaws.com/solutions_archi_chat_Icon.png">
-  <link rel="canonical" href="https://www.solutionsarchichat.com/visualizations/vec-purely-functional-queue.html" />
+  <link rel="canonical" href="https://www.solutionsarchichat.com/visualizations/purely-functional-queue-vec.html" />
   <meta name="robots" content="index, follow">
   <meta name="author" content="Devin McMillen">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,18 +43,18 @@
   <script type="module" src="./core/solutions-archi-chat-button.js"></script>
   <script type="module" src="./queue/queue-command-ribbon.js"></script>
   <script type="module" src="./queue/queue-operations-window.js"></script>
-  <script type="module" src="./queue/vec-purely-functional-queue-visual.js"></script>
-  <script type="module" src="./queue/vec-purely-functional-queue-pseudo-code-visual.js"></script>
+  <script type="module" src="./queue/purely-functional-queue-vec-visual.js"></script>
+  <script type="module" src="./queue/purely-functional-queue-vec-pseudo-code-visual.js"></script>
 </head>
 
 <body>
-  <h1>(Vec) Purely Functional Queue Visualizer</h1>
-
   <solutions-archi-chat-button></solutions-archi-chat-button>
+  <h1>Persistent Queue Visualizer</h1>
+  <p>Vec implementation of Purely Functional Queue.</p>
   <queue-command-ribbon></queue-command-ribbon>
-  <vec-purely-functional-queue-visual></vec-purely-functional-queue-visual>
+  <purely-functional-queue-vec-visual></purely-functional-queue-vec-visual>
   <queue-operations-window></queue-operations-window>
-  <vec-purely-functional-queue-pseudo-code-visual-viewer></vec-purely-functional-queue-pseudo-code-visual-viewer>
+  <purely-functional-queue-vec-pseudo-code-visual-viewer></purely-functional-queue-vec-pseudo-code-visual-viewer>
 
   <script type="module">
     import init, { VecFunctionalQueueVisual } from './pkg/data_structures_wasm.js';
@@ -65,8 +65,8 @@
       const queue = new VecFunctionalQueueVisual();
       const ribbon = document.querySelector('queue-command-ribbon');
       const log = document.querySelector('queue-operations-window');
-      const visual = document.querySelector('vec-purely-functional-queue-visual');
-      const pseudo = document.querySelector('vec-purely-functional-queue-pseudo-code-visual-viewer');
+      const visual = document.querySelector('purely-functional-queue-vec-visual');
+      const pseudo = document.querySelector('purely-functional-queue-vec-pseudo-code-visual-viewer');
 
       await Promise.all([log.ready, visual.ready]);
 
@@ -98,7 +98,7 @@
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "(Vec) Purely Functional Queue Visualizer",
-      "url": "https://www.solutionsarchichat.com/visualizations/vec-purely-functional-queue.html",
+      "url": "https://www.solutionsarchichat.com/visualizations/purely-functional-queue-vec.html",
       "description": "An interactive visualization of a purely functional queue implemented with persistent data structures and real-time animations.",
       "applicationCategory": "EducationalApplication",
       "operatingSystem": "All",

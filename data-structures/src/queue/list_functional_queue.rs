@@ -3,8 +3,8 @@ use std::rc::Rc;
 
 #[derive(Clone, Debug)]
 pub struct ListFunctionalQueue<T> {
-    front: Rc<SinglyLinkedList<T>>,
-    rear: Rc<SinglyLinkedList<T>>,
+    pub front: Rc<SinglyLinkedList<T>>,
+    pub rear: Rc<SinglyLinkedList<T>>,
 }
 
 impl<T: Clone> ListFunctionalQueue<T> {

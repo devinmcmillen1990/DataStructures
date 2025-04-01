@@ -1,1 +1,7 @@
 2. Fix "https://www.solutionsarchichat.com/visualizations"
+
+* Verify Structured data
+* Verify <head> meta tags.
+* Verify HTML structure is SEO friendly.
+* Verify CSS classes are SEO friendly.
+* Add Propeller Ads stuff.
