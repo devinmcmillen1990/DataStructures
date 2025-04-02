@@ -44,3 +44,5 @@ Heaps
 Other
  Persistent Array
  Zipper (navigation and mutation in trees)
+
+** Get Paper on why discord switched to Rust from Go because of garbage collector with LRU cache (include in LRU example)
