@@ -38,4 +38,4 @@ class QueueStateVisual extends HTMLElement {
     }
 }
 
-customElements.define('vec-purely-functional-queue-visual', QueueStateVisual);
+customElements.define('purely-functional-queue-vec-visual', QueueStateVisual);

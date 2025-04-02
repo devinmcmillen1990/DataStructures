@@ -1,0 +1,6 @@
+1. Remove Warnings:
+"warning: use of deprecated associated function `wasm_bindgen::JsValue::from_serde`: causes dependency cycles, use `serde-wasm-bindgen` or `gloo_utils::format::JsValueSerdeExt` instead
+  --> src\queue\vec_functional_queue_visual.rs:49:18
+   |
+49 |         JsValue::from_serde(&state).unwrap()
+   |                  ^^^^^^^^^^"

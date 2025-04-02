@@ -16,6 +16,6 @@ class VecPurelyFunctionalQueuePseudoCodeVisual extends HTMLElement {
 }
 
 customElements.define(
-    'vec-purely-functional-queue-pseudo-code-visual-viewer',
+    'purely-functional-queue-vec-pseudo-code-visual-viewer',
     VecPurelyFunctionalQueuePseudoCodeVisual
 );
