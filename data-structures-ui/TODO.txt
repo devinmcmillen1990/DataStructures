@@ -4,6 +4,7 @@
     3.a. Update ReactJS application Navbar with this application.
 4. Setup Links for resources
 5. Download papers from resources and provide links for direct downloads.
+6. Add Page reference for pseudo code
 
 * Verify Structured data
 * Verify <head> meta tags.
