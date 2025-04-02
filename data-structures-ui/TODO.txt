@@ -1,0 +1,12 @@
+1. Fix "https://www.solutionsarchichat.com/visualizations"
+2. Setup Tailwind CSS to match layout of React App
+3. Get navbar and footer from ReactJS app (Update meta and structured data)
+    3.a. Update ReactJS application Navbar with this application.
+4. Setup Links for resources
+5. Download papers from resources and provide links for direct downloads.
+
+* Verify Structured data
+* Verify <head> meta tags.
+* Verify HTML structure is SEO friendly.
+* Verify CSS classes are SEO friendly.
+* Add Propeller Ads stuff.
