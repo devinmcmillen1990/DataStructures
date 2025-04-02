@@ -5,9 +5,41 @@
 4. Setup Links for resources
 5. Download papers from resources and provide links for direct downloads.
 6. Add Page reference for pseudo code
+7. Extract out pseudo code component to /core and resources
+8. Setup UI tests to verify that we don't break anything.
 
 * Verify Structured data
 * Verify <head> meta tags.
 * Verify HTML structure is SEO friendly.
 * Verify CSS classes are SEO friendly.
 * Add Propeller Ads stuff.
+** ReactJS site - Setup Pop under for these links.
+
+Upcoming data structures:
+Persistent Data Structures to Build
+Queues & Lists
+ Real-Time Queue
+ Banker's Queue
+ Functional Deque
+ Persistent Singly Linked List -> Verify that our's is Persistent/Functional and then implement a visual
+ Persistent Doubly Linked List
+
+Stacks
+ Functional Stack
+
+Trees
+ Binary Tree
+ AVL Tree
+ Red-Black Tree
+ Trie (Prefix Tree)
+ Finger Tree
+ Merkle Tree ← great for blockchain / data integrity
+
+Heaps
+ Binomial Heap
+ Leftist Heap
+ Skew Heap
+
+Other
+ Persistent Array
+ Zipper (navigation and mutation in trees)
