@@ -7,6 +7,7 @@
 6. Add Page reference for pseudo code
 7. Extract out pseudo code component to /core and resources
 8. Setup UI tests to verify that we don't break anything.
+9. Update README.md with some decent descriptions
 
 * Verify Structured data
 * Verify <head> meta tags.
