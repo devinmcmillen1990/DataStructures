@@ -4,11 +4,16 @@
         <span id="versionCounter" class="text-blue-600 font-mono text-sm">0</span>
     </div>
 
-    <h2 class="text-lg font-semibold text-gray-800 border-b border-gray-200 pb-1">
-        Queue History
-    </h2>
+    <div class="flex justify-between items-center">
+        <h2 class="text-lg font-semibold text-gray-800">Queue History</h2>
+        <button id="clearHistoryBtn"
+            class="text-sm text-red-600 border border-red-200 rounded px-2 py-1 hover:bg-red-50 transition">
+            Clear History
+        </button>
+    </div>
 
-    <div id="history" class="space-y-2 max-h-[20rem] overflow-y-auto pr-2"></div>
+    <div class="relative">
+        <div id="history" class="space-y-2 overflow-y-auto bg-white border border-gray-200 rounded p-2"
+            style="max-height: 16rem; min-height: 16rem;"></div>
+    </div>
 </div>
-
-<!-- TODO: Add Clear button for the history-->
