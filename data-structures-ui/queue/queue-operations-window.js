@@ -1,3 +1,4 @@
+// TODO: Add clear button for the history
 class QueueOperationsWindow extends HTMLElement {
     constructor() {
         super();

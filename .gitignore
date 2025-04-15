@@ -6,3 +6,5 @@ pkg/
 *.pdb
 
 data-structures-wasm/Cargo.lock
+
+node_modules/

@@ -1,5 +1,5 @@
 1. Fix "https://www.solutionsarchichat.com/visualizations"
-2. Setup Tailwind CSS to match layout of React App
+2. Setup Tailwind CSS to match layout of React App >> setup bundler for tailwind.
 3. Get navbar and footer from ReactJS app (Update meta and structured data)
     3.a. Update ReactJS application Navbar with this application.
 4. Setup Links for resources
