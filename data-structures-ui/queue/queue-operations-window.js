@@ -25,7 +25,9 @@ class QueueOperationsWindow extends HTMLElement {
 
         const clearBtn = this.shadowRoot.getElementById('clearHistoryBtn');
         if (clearBtn) {
-            clearBtn.addEventListener('click', () => this.clearHistory());
+            clearBtn.addEventListener('click', () => {
+                this.dispatchEvent(new Event('clear-queue', { bubbles: true }));
+            });
         }
     }
 

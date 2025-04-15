@@ -55,20 +55,27 @@
     async function main() {
       await init();
 
-      const queue = new ListFunctionalQueueVisual();
+      let queue = new ListFunctionalQueueVisual();
       const ribbon = document.querySelector('queue-command-ribbon');
       const log = document.querySelector('queue-operations-window');
       const visual = document.querySelector('purely-functional-queue-list-visual');
-      const pseudo = document.querySelector('purely-functional-queue-list-pseudo-code-visual-viewer');
+      const pseudo = document.querySelector('purely-functional-queue-pseudo-code-visual');
 
       await Promise.all([log.ready, visual.ready]);
+
+      function updateEmptyState() {
+        if (typeof ribbon.setQueueEmptyState === 'function') {
+          const state = queue.state();
+          ribbon.setQueueEmptyState(state.front.length === 0 && state.rear.length === 0);
+        }
+      }
 
       function saveState(label = '') {
         const state = queue.state();
         log.setCurrentState(state);
         log.addEntry(label, state);
         visual.update(state);
-        ribbon.setQueueEmptyState(state.front.length === 0 && state.rear.length === 0);
+        updateEmptyState();
       }
 
       document.addEventListener('enqueue', (e) => {
@@ -79,6 +86,31 @@
       document.addEventListener('dequeue', () => {
         const val = queue.dequeue();
         saveState(val !== null ? `dequeue() → "${val}"` : 'dequeue() → null');
+      });
+
+      document.addEventListener('clear-queue', () => {
+        queue = new ListFunctionalQueueVisual();
+        visual.update(queue.state());
+        log.clearHistory();
+        updateEmptyState();
+        saveState('initial()');
+      });
+
+      document.addEventListener('keydown', (e) => {
+        const ribbonInput = ribbon.shadowRoot?.getElementById('enqueueInput');
+        const activeInside = ribbon.shadowRoot?.activeElement;
+
+        if (e.key === 'Enter' && activeInside === ribbonInput) {
+          const val = ribbonInput.value.trim();
+          if (val !== '') {
+            document.dispatchEvent(new CustomEvent('enqueue', { detail: val }));
+            ribbonInput.value = '';
+          }
+        }
+
+        if (e.key === 'Delete') {
+          document.dispatchEvent(new Event('dequeue'));
+        }
       });
 
       saveState("initial()");

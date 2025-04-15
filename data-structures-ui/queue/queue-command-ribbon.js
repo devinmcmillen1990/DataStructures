@@ -2,59 +2,33 @@ class QueueCommandRibbon extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
+    this.ready = this.loadTemplate();
   }
 
-  async connectedCallback() {
+  async loadTemplate() {
     const html = await fetch('./queue/queue-command-ribbon.html').then(res => res.text());
-
     this.shadowRoot.innerHTML = html;
 
-    const input = this.shadowRoot.getElementById('valueInput');
     const enqueueBtn = this.shadowRoot.getElementById('enqueueBtn');
     const dequeueBtn = this.shadowRoot.getElementById('dequeueBtn');
+    const clearBtn = this.shadowRoot.getElementById('clearQueueBtn');
+    const input = this.shadowRoot.getElementById('enqueueInput');
 
-    input.addEventListener('input', () => {
-      enqueueBtn.disabled = input.value.trim() === "";
-    });
-
-    enqueueBtn.addEventListener('click', () => {
-      const val = input.value.trim();
-      if (val) {
-        this.dispatchEvent(new CustomEvent('enqueue', { detail: val, bubbles: true }));
-        input.value = "";
-        enqueueBtn.disabled = true;
+    enqueueBtn?.addEventListener('click', () => {
+      const value = input.value.trim();
+      if (value !== '') {
+        this.dispatchEvent(new CustomEvent('enqueue', { detail: value, bubbles: true }));
+        input.value = '';
       }
     });
 
-    dequeueBtn.addEventListener('click', () => {
+    dequeueBtn?.addEventListener('click', () => {
       this.dispatchEvent(new Event('dequeue', { bubbles: true }));
     });
 
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        enqueueBtn.click();
-      }
+    clearBtn?.addEventListener('click', () => {
+      this.dispatchEvent(new Event('clear-queue', { bubbles: true }));
     });
-
-    window.addEventListener('keydown', (e) => {
-      const isInputFocused = this.shadowRoot.contains(document.activeElement);
-      const isInputEmpty = input.value.trim() === "";
-
-      if ((e.key === 'Delete') && (isInputEmpty || !isInputFocused)) {
-        e.preventDefault();
-        dequeueBtn.click();
-      }
-    });
-
-    this._input = input;
-    this._dequeueBtn = dequeueBtn;
-  }
-
-  setQueueEmptyState(isEmpty) {
-    if (this._dequeueBtn) {
-      this._dequeueBtn.disabled = isEmpty;
-    }
   }
 }
 
