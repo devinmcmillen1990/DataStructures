@@ -3,6 +3,15 @@ use data_structures::queue::list_functional_queue::ListFunctionalQueue;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsValue;
 
+/*
+    TODO:
+        1. Setup SEO to make this searchable (Maybe JS)
+        2. Replace custom CSS with TailWindCSS (Maybe JS)
+        3. Ensure is mobile friendly (Maybe JS)
+        4. Add "Buy me a Coffee" (Maybe JS)
+        5. Add Advertisements (Maybe JS)
+*/
+
 #[wasm_bindgen]
 pub struct ListFunctionalQueueVisual {
     inner: ListFunctionalQueue<String>,

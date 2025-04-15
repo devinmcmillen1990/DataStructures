@@ -1,10 +1,14 @@
-use wasm_bindgen::prelude::*;
 use data_structures::queue::vec_functional_queue::VecFunctionalQueue;
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
+use wasm_bindgen::prelude::*;
 
 /*
     TODO:
-        7. Setup SEO to make this searchable.
+        1. Setup SEO to make this searchable (Maybe JS)
+        2. Replace custom CSS with TailWindCSS (Maybe JS)
+        3. Ensure is mobile friendly (Maybe JS)
+        4. Add "Buy me a Coffee" (Maybe JS)
+        5. Add Advertisements (Maybe JS)
 */
 
 #[derive(Serialize, Deserialize)]
@@ -36,7 +40,7 @@ impl VecFunctionalQueueVisual {
             Some((val, next)) => {
                 self.inner = next;
                 JsValue::from_serde(&val).unwrap()
-            },
+            }
             None => JsValue::NULL,
         }
     }
