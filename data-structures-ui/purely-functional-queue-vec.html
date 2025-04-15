@@ -3,12 +3,15 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>Persistent Queue (Linked-List) | Solutions Archichat</title>
+  <title>Persistent Queue (Vector-Based) | Solutions Archichat</title>
   <meta name="title" content="Purely Functional Queue Visualizer | Solutions Archichat">
   <meta name="description"
     content="Visualize a purely functional queue using Chris Okasaki's method. Includes animations, real-time interaction, and the original pseudocode from the paper.">
+  <meta name="keywords"
+    content="functional data structures, purely functional queue, Chris Okasaki, queue visualizer, Rust WASM, algorithms">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.solutionsarchichat.com/data-structures-ui/purely-functional-queue-vec.html">
+  <meta property="og:url"
+    content="https://www.solutionsarchichat.com/data-structures-ui/purely-functional-queue-vec.html">
   <meta property="og:title" content="Purely Functional Queue Visualizer | Solutions Archichat">
   <meta property="og:description"
     content="Visualize a purely functional queue using Chris Okasaki's method. Includes animations, real-time interaction, and the original pseudocode from the paper.">
@@ -27,19 +30,6 @@
   <meta name="author" content="Devin McMillen">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      font-family: system-ui, sans-serif;
-      max-width: 800px;
-      margin: auto;
-      padding: 2rem;
-    }
-
-    h1 {
-      margin-bottom: 1rem;
-    }
-  </style>
-
   <script src="https://cdn.tailwindcss.com"></script>
   <script type="module" src="./core/solutions-archi-chat-button.js"></script>
   <script type="module" src="./queue/queue-command-ribbon.js"></script>
@@ -48,14 +38,16 @@
   <script type="module" src="./queue/vec-purely-functional-queue-pseudo-code-visual.js"></script>
 </head>
 
-<body>
+<body class="font-sans max-w-3xl mx-auto p-6 text-gray-800 bg-white prose">
   <solutions-archi-chat-button></solutions-archi-chat-button>
-  <h1>Persistent Queue Visualizer</h1>
-  <p>Vec implementation of Purely Functional Queue.</p>
-  <queue-command-ribbon></queue-command-ribbon>
-  <purely-functional-queue-vec-visual></purely-functional-queue-vec-visual>
-  <queue-operations-window></queue-operations-window>
-  <purely-functional-queue-vec-pseudo-code-visual-viewer></purely-functional-queue-vec-pseudo-code-visual-viewer>
+  <h1 class="text-2xl font-semibold mb-2">Persistent Queue (Vec-Based) Visualizer</h1>
+  <p class="text-gray-600 mb-4">Vector-based implementation of a Purely Functional Queue.</p>
+
+  <queue-command-ribbon class="block my-4"></queue-command-ribbon>
+  <purely-functional-queue-vec-visual class="block my-4"></purely-functional-queue-vec-visual>
+  <queue-operations-window class="block my-4"></queue-operations-window>
+  <purely-functional-queue-vec-pseudo-code-visual-viewer
+    class="block my-4"></purely-functional-queue-vec-pseudo-code-visual-viewer>
 
   <script type="module">
     import init, { VecFunctionalQueueVisual } from './pkg/data_structures_wasm.js';
@@ -94,6 +86,7 @@
 
     main();
   </script>
+
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
