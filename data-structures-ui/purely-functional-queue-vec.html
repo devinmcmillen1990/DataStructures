@@ -35,7 +35,7 @@
   <script type="module" src="./queue/queue-command-ribbon.js"></script>
   <script type="module" src="./queue/queue-operations-window.js"></script>
   <script type="module" src="./queue/vec-purely-functional-queue-visual.js"></script>
-  <script type="module" src="./queue/vec-purely-functional-queue-pseudo-code-visual.js"></script>
+  <script type="module" src="./queue/purely-functional-queue-pseudo-code-visual.js"></script>
 </head>
 
 <body class="font-sans max-w-3xl mx-auto p-6 text-gray-800 bg-white prose">
@@ -46,8 +46,7 @@
   <queue-command-ribbon class="block my-4"></queue-command-ribbon>
   <purely-functional-queue-vec-visual class="block my-4"></purely-functional-queue-vec-visual>
   <queue-operations-window class="block my-4"></queue-operations-window>
-  <purely-functional-queue-vec-pseudo-code-visual-viewer
-    class="block my-4"></purely-functional-queue-vec-pseudo-code-visual-viewer>
+  <purely-functional-queue-pseudo-code-visual class="block my-4"></purely-functional-queue-pseudo-code-visual>
 
   <script type="module">
     import init, { VecFunctionalQueueVisual } from './pkg/data_structures_wasm.js';
@@ -55,20 +54,27 @@
     async function main() {
       await init();
 
-      const queue = new VecFunctionalQueueVisual();
+      let queue = new VecFunctionalQueueVisual();
       const ribbon = document.querySelector('queue-command-ribbon');
       const log = document.querySelector('queue-operations-window');
       const visual = document.querySelector('purely-functional-queue-vec-visual');
-      const pseudo = document.querySelector('purely-functional-queue-vec-pseudo-code-visual-viewer');
+      const pseudo = document.querySelector('purely-functional-queue-pseudo-code-visual');
 
       await Promise.all([log.ready, visual.ready]);
+
+      function updateEmptyState() {
+        if (typeof ribbon.setQueueEmptyState === 'function') {
+          const state = queue.state();
+          ribbon.setQueueEmptyState(state.front.length === 0 && state.rear.length === 0);
+        }
+      }
 
       function saveState(label = '') {
         const state = queue.state();
         log.setCurrentState(state);
         log.addEntry(label, state);
         visual.update(state);
-        ribbon.setQueueEmptyState(state.front.length === 0 && state.rear.length === 0);
+        updateEmptyState();
       }
 
       document.addEventListener('enqueue', (e) => {
@@ -79,6 +85,32 @@
       document.addEventListener('dequeue', () => {
         const val = queue.dequeue();
         saveState(val !== null ? `dequeue() → "${val}"` : 'dequeue() → null');
+      });
+
+      document.addEventListener('clear-queue', () => {
+        queue = new VecFunctionalQueueVisual(); // Reset by re-instantiation
+        visual.update(queue.state());
+        log.clearHistory();
+        updateEmptyState();
+        saveState('initial()');
+      });
+
+      // 🔥 Hotkeys: Enter to enqueue, Delete to dequeue
+      document.addEventListener('keydown', (e) => {
+        const input = ribbon.shadowRoot?.getElementById('enqueueInput');
+        const focusedInside = ribbon.shadowRoot?.activeElement;
+
+        if (e.key === 'Enter' && focusedInside === input) {
+          const val = input.value.trim();
+          if (val !== '') {
+            document.dispatchEvent(new CustomEvent('enqueue', { detail: val }));
+            input.value = '';
+          }
+        }
+
+        if (e.key === 'Delete') {
+          document.dispatchEvent(new Event('dequeue'));
+        }
       });
 
       saveState("initial()");
