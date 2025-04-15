@@ -1,8 +1,12 @@
-<div class="queue-ops-wrapper">
-    <div class="queue-ops-header">
-        <strong>Current Queue Version:</strong>
-        <span id="versionCounter">0</span>
+<div class="w-full border border-gray-300 rounded-md p-4 bg-white shadow-sm space-y-4">
+    <div class="flex flex-wrap justify-between items-center gap-2">
+        <strong class="text-gray-700 text-base">Current Queue Version:</strong>
+        <span id="versionCounter" class="text-blue-600 font-mono text-sm">0</span>
     </div>
-    <h2 class="queue-ops-history-title">Queue History</h2>
-    <div class="queue-ops-history" id="history"></div>
+
+    <h2 class="text-lg font-semibold text-gray-800 border-b border-gray-200 pb-1">
+        Queue History
+    </h2>
+
+    <div id="history" class="space-y-2 max-h-[20rem] overflow-y-auto pr-2"></div>
 </div>

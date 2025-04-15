@@ -6,12 +6,8 @@ class QueueStateVisual extends HTMLElement {
     }
 
     async loadTemplate() {
-        const [html, css] = await Promise.all([
-            fetch('./queue/vec-purely-functional-queue-visual.html').then(res => res.text()),
-            fetch('./queue/vec-purely-functional-queue-visual.css').then(res => res.text())
-        ]);
-
-        this.shadowRoot.innerHTML = `<style>${css}</style>${html}`;
+        const html = await fetch('./queue/vec-purely-functional-queue-visual.html').then(res => res.text());
+        this.shadowRoot.innerHTML = html;
     }
 
     update(state) {
@@ -22,19 +18,15 @@ class QueueStateVisual extends HTMLElement {
         frontRow.innerHTML = '';
         rearRow.innerHTML = '';
 
-        state.front.forEach(val => {
+        const renderBox = (val) => {
             const box = document.createElement('div');
-            box.className = 'queue-box';
+            box.className = 'px-3 py-1 bg-blue-100 border border-blue-400 rounded text-sm';
             box.textContent = val;
-            frontRow.appendChild(box);
-        });
+            return box;
+        };
 
-        [...state.rear].reverse().forEach(val => {
-            const box = document.createElement('div');
-            box.className = 'queue-box';
-            box.textContent = val;
-            rearRow.appendChild(box);
-        });
+        state.front.forEach(val => frontRow.appendChild(renderBox(val)));
+        [...state.rear].reverse().forEach(val => rearRow.appendChild(renderBox(val)));
     }
 }
 

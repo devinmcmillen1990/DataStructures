@@ -8,16 +8,12 @@ class QueueOperationsWindow extends HTMLElement {
     }
 
     async loadTemplate() {
-        const templateHtml = await fetch('./queue/queue-operations-window.html').then(res => res.text());
-        const style = `<link rel="stylesheet" href="./queue/queue-operations-window.css" />`;
-        this.shadowRoot.innerHTML = style + templateHtml;
+        const html = await fetch('./queue/queue-operations-window.html').then(res => res.text());
+        this.shadowRoot.innerHTML = html;
     }
 
     setCurrentState(state) {
-        const output = this.shadowRoot.getElementById('output');
-        if (output) {
-            output.textContent = JSON.stringify(state, null, 2);
-        }
+        // Optionally show live state elsewhere
     }
 
     addEntry(label, state) {
@@ -38,11 +34,13 @@ class QueueOperationsWindow extends HTMLElement {
         historyDiv.innerHTML = '';
         [...this.history].reverse().forEach((entry, index) => {
             const div = document.createElement('div');
-            div.className = 'queue-ops-entry';
+            div.className = 'border border-gray-200 rounded p-2 bg-gray-50';
+
             div.innerHTML = `
-          <div class="queue-ops-label">${this.version - index}. ${entry.label}</div>
-          <code class="queue-ops-json">${JSON.stringify(entry.state)}</code>
+          <div class="text-sm font-semibold text-gray-700">${this.version - index}. ${entry.label}</div>
+          <code class="block text-xs text-gray-600 bg-white mt-1 p-1 rounded overflow-x-auto">${JSON.stringify(entry.state)}</code>
         `;
+
             historyDiv.appendChild(div);
         });
     }

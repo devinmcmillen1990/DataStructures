@@ -5,12 +5,8 @@ class SiteHeader extends HTMLElement {
     }
 
     async connectedCallback() {
-        const [html, css] = await Promise.all([
-            fetch('./core/solutions-archi-chat-button.html').then(res => res.text()),
-            fetch('./core/solutions-archi-chat-button.css').then(res => res.text())
-        ]);
-
-        this.shadowRoot.innerHTML = `<style>${css}</style>${html}`;
+        const html = await fetch('./core/solutions-archi-chat-button.html').then(res => res.text());
+        this.shadowRoot.innerHTML = html;
     }
 }
 

@@ -6,12 +6,8 @@ class VecPurelyFunctionalQueuePseudoCodeVisual extends HTMLElement {
     }
 
     async load() {
-        const [html, css] = await Promise.all([
-            fetch('./queue/vec-purely-functional-queue-pseudo-code-visual.html').then(r => r.text()),
-            fetch('./queue/vec-purely-functional-queue-pseudo-code-visual.css').then(r => r.text()),
-        ]);
-
-        this.shadowRoot.innerHTML = `<style>${css}</style>${html}`;
+        const html = await fetch('./queue/vec-purely-functional-queue-pseudo-code-visual.html').then(r => r.text());
+        this.shadowRoot.innerHTML = html;
     }
 }
 

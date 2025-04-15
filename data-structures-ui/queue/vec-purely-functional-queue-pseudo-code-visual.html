@@ -1,18 +1,20 @@
-<div class="pseudo-container">
+<div class="bg-gray-50 border border-gray-300 rounded p-4 overflow-x-auto text-sm font-mono leading-relaxed">
   <pre><code>
-  signature QUEUE =
-  sig
-    type Queue
-    exception EMPTY
-    val empty   : Queue
-    val isEmpty : Queue → bool
-    val snoc    : Queue × α → Queue
-    val head    : Queue → α         (raises EMPTY if queue is empty)
-    val tail    : Queue → Queue     (raises EMPTY if queue is empty)
-  end
-    </code></pre>
-  <p class="citation">
-    From: <a href="https://www.cs.cmu.edu/~rwh/students/okasaki.pdf" target="_blank" rel="noopener noreferrer">
+signature QUEUE =
+sig
+  type Queue
+  exception EMPTY
+  val empty   : Queue
+  val isEmpty : Queue → bool
+  val snoc    : Queue × α → Queue
+  val head    : Queue → α         (raises EMPTY if queue is empty)
+  val tail    : Queue → Queue     (raises EMPTY if queue is empty)
+end
+  </code></pre>
+  <p class="mt-2 text-xs text-gray-600 italic">
+    From:
+    <a href="https://www.cs.cmu.edu/~rwh/students/okasaki.pdf" target="_blank" rel="noopener noreferrer"
+      class="text-blue-600 underline hover:text-blue-800">
       Purely Functional Data Structures by Chris Okasaki
     </a>
   </p>

@@ -1,5 +1,11 @@
-<div class="ribbon">
-    <input id="valueInput" placeholder="Enter value..." />
-    <button id="enqueueBtn" disabled>Enqueue</button>
-    <button id="dequeueBtn">Dequeue</button>
+<div class="flex flex-wrap gap-2 p-2 bg-gray-100 border border-gray-300 rounded-md w-full">
+    <input id="valueInput" placeholder="Enter value..."
+        class="flex-1 min-w-[8rem] px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    <button id="enqueueBtn" disabled
+        class="px-4 py-2 font-semibold text-white bg-blue-600 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-700 transition">
+        Enqueue
+    </button>
+    <button id="dequeueBtn" class="px-4 py-2 font-semibold text-white bg-red-600 rounded hover:bg-red-700 transition">
+        Dequeue
+    </button>
 </div>
