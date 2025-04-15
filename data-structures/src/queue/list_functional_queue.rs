@@ -1,6 +1,8 @@
 use crate::linked_list::singly_linked_list::SinglyLinkedList;
 use std::rc::Rc;
 
+// TODO: Get Functional Queue documentation
+
 #[derive(Clone, Debug)]
 pub struct ListFunctionalQueue<T> {
     pub front: Rc<SinglyLinkedList<T>>,

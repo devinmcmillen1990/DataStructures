@@ -1,3 +1,4 @@
+// TODO: Get Functional Queue documentation
 #[derive(Clone, Debug)]
 pub struct VecFunctionalQueue<T: Clone> {
     pub front: Vec<T>,
