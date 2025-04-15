@@ -1,0 +1,9 @@
+<pre class="bg-gray-50 p-4 rounded border text-sm whitespace-pre-wrap">
+    signature SKIPLIST =
+    sig
+      type SkipList
+      val insert : SkipList × α × ttl → SkipList
+      val removeExpired : SkipList × timestamp → SkipList
+      val values : SkipList → α list
+    end
+</pre>
