@@ -2,6 +2,61 @@ use crate::time_indexed::skip_list_expiry::SkipListExpiry;
 use chrono::Utc;
 
 #[test]
+fn test_insert_with_expiry_ticker() {
+    // Create a skip list with 3 buckets of 1 second each
+    let skiplist = SkipListExpiry::new(3, 1);
+    let now = Utc::now().timestamp();
+
+    skiplist.insert("A".to_string(), now);       // Will expire in 1st tick
+    skiplist.insert("B".to_string(), now + 1);   // 2nd tick
+    skiplist.insert("C".to_string(), now + 2);   // 3rd tick
+    skiplist.insert("D".to_string(), now + 3);   // Out of range, ignored
+
+    // Simulate time passing by calling expire_front per tick
+    assert_eq!(skiplist.expire_front(), vec!["A"]);
+    assert_eq!(skiplist.expire_front(), vec!["B"]);
+    assert_eq!(skiplist.expire_front(), vec!["C"]);
+    assert!(skiplist.expire_front().is_empty());
+}
+
+#[test]
+fn test_live_ticker_simulation() {
+    // This simulates a runtime scenario where tick is called once per second
+    let skiplist = SkipListExpiry::new(5, 1);
+    let now = Utc::now().timestamp();
+
+    skiplist.insert("First".to_string(), now);
+    skiplist.insert("Second".to_string(), now + 1);
+    skiplist.insert("Third".to_string(), now + 2);
+
+    // First tick
+    assert_eq!(skiplist.expire_front(), vec!["First"]);
+
+    // Second tick
+    assert_eq!(skiplist.expire_front(), vec!["Second"]);
+
+    // Third tick
+    assert_eq!(skiplist.expire_front(), vec!["Third"]);
+}
+
+#[test]
+fn test_len_after_expiry() {
+    let skiplist = SkipListExpiry::new(3, 2);
+    let now = Utc::now().timestamp();
+
+    skiplist.insert("X".to_string(), now);
+    skiplist.insert("Y".to_string(), now + 2);
+
+    assert_eq!(skiplist.len(), 2);
+
+    skiplist.expire_front(); // "X" should expire
+    assert_eq!(skiplist.len(), 1);
+
+    skiplist.expire_front(); // "Y" should expire
+    assert_eq!(skiplist.len(), 0);
+}
+
+#[test]
 fn test_insert_and_expire_basic() {
     let skiplist = SkipListExpiry::new(3, 10); // 3 buckets, 10s each
 

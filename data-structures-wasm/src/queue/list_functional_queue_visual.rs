@@ -1,16 +1,7 @@
 use crate::queue::vec_functional_queue_visual::QueueState;
 use data_structures::queue::list_functional_queue::ListFunctionalQueue;
+use serde_wasm_bindgen::to_value;
 use wasm_bindgen::prelude::*;
-use wasm_bindgen::JsValue;
-
-/*
-    TODO:
-        1. Setup SEO to make this searchable (Maybe JS)
-        2. Replace custom CSS with TailWindCSS (Maybe JS)
-        3. Ensure is mobile friendly (Maybe JS)
-        4. Add "Buy me a Coffee" (Maybe JS)
-        5. Add Advertisements (Maybe JS)
-*/
 
 #[wasm_bindgen]
 pub struct ListFunctionalQueueVisual {
@@ -34,7 +25,7 @@ impl ListFunctionalQueueVisual {
         match self.inner.dequeue() {
             Some((val, next)) => {
                 self.inner = next;
-                JsValue::from_serde(&val).unwrap()
+                to_value(&val).unwrap()
             }
             None => JsValue::NULL,
         }
@@ -45,7 +36,7 @@ impl ListFunctionalQueueVisual {
             front: flatten_list(self.inner.front.clone()),
             rear: flatten_list(self.inner.rear.clone()),
         };
-        JsValue::from_serde(&state).unwrap()
+        to_value(&state).unwrap()
     }
 }
 

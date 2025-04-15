@@ -41,6 +41,8 @@ impl<T: Ord + Clone + Hash + Eq + Send + 'static> SkipListExpiry<T> {
         inner.id_to_bucket.insert(id, index);
     }
 
+    /// expire_front()
+    /// NOTE: Expected to be called periodically between operations.
     pub fn expire_front(&self) -> Vec<T> {
         let mut inner = self.inner.lock().unwrap();
         let expired = inner.buckets.pop_front().unwrap_or_default();
@@ -58,5 +60,10 @@ impl<T: Ord + Clone + Hash + Eq + Send + 'static> SkipListExpiry<T> {
 
     pub fn is_empty(&self) -> bool {
         self.len() == 0
+    }
+
+    pub fn values(&self) -> Vec<T> {
+        let inner = self.inner.lock().unwrap();
+        inner.id_to_bucket.keys().cloned().collect()
     }
 }

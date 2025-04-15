@@ -10,25 +10,40 @@ class SkiplistExpiryCommandRibbon extends HTMLElement {
         this.shadowRoot.innerHTML = html;
 
         const input = this.shadowRoot.getElementById('valueInput');
+        const ttlSelect = this.shadowRoot.getElementById('ttlSelect');
         const enqueueBtn = this.shadowRoot.getElementById('enqueueButton');
         const clearBtn = this.shadowRoot.getElementById('clearButton');
 
+        const getTTL = () => parseInt(ttlSelect.value) * 1000;
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const value = input.value.trim();
+                if (value) {
+                    document.dispatchEvent(new CustomEvent('enqueue', { detail: { value, ttl: getTTL() } }));
+                    input.value = '';
+                }
+            }
+        });
+
         enqueueBtn.addEventListener('click', () => {
-            const val = input.value.trim();
-            if (val !== '') {
-                document.dispatchEvent(new CustomEvent('enqueue', { detail: val }));
+            const value = input.value.trim();
+            if (value) {
+                document.dispatchEvent(new CustomEvent('enqueue', { detail: { value, ttl: getTTL() } }));
                 input.value = '';
             }
         });
 
         clearBtn.addEventListener('click', () => {
-            document.dispatchEvent(new Event('clear-queue'));
+            document.dispatchEvent(new CustomEvent('clear-queue'));
         });
     }
 
     setQueueEmptyState(isEmpty) {
-        const clearBtn = this.shadowRoot.getElementById('clearButton');
-        if (clearBtn) clearBtn.disabled = isEmpty;
+        const clearBtn = this.shadowRoot.getElementById('clearBtn');
+        if (clearBtn) {
+            clearBtn.disabled = isEmpty;
+        }
     }
 }
 

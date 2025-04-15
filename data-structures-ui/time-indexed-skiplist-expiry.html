@@ -2,78 +2,66 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <title>Skip List with Expiry | Time-Indexed Structures</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
+  <title>Skip List with Expiry | Time-Indexed Structures</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Styles & Scripts -->
-    <link rel="stylesheet" href="./index.css">
-    <script type="module" src="./core/navbar.js"></script>
-    <script type="module" src="./time-indexed/skiplist/skiplist-expiry-command-ribbon.js"></script>
-    <script type="module" src="./time-indexed/skiplist/skiplist-expiry-operations-window.js"></script>
-    <script type="module" src="./time-indexed/skiplist/skiplist-expiry-visual.js"></script>
-    <script type="module" src="./time-indexed/skiplist/skiplist-expiry-pseudo-code-visual.js"></script>
+  <!-- Styles & Scripts -->
+  <link rel="stylesheet" href="./index.css">
+  <script type="module" src="./core/navbar.js"></script>
+  <script type="module" src="./time-indexed/skiplist/skiplist-expiry-command-ribbon.js"></script>
+  <script type="module" src="./time-indexed/skiplist/skiplist-expiry-operations-window.js"></script>
+  <script type="module" src="./time-indexed/skiplist/skiplist-expiry-visual.js"></script>
+  <script type="module" src="./time-indexed/skiplist/skiplist-expiry-pseudo-code-visual.js"></script>
+  <script type="module">
+    import init, { SkipListExpiryVisual } from "../pkg/data_structures_wasm.js";
+
+    async function main() {
+      await init();
+
+      const skiplist = new SkipListExpiryVisual();
+      const ribbon = document.querySelector('skiplist-expiry-command-ribbon');
+      const visual = document.querySelector('skiplist-expiry-visual');
+      const ops = document.querySelector('skiplist-expiry-operations-window');
+
+      await Promise.all([visual.ready, ops.ready]);
+
+      function render(label) {
+        const state = skiplist.state();
+        console.log("SkipList State:", state);
+        visual.update(state.values);
+        ops.addEntry(label, state);
+        ribbon.setQueueEmptyState(state.values.length === 0);
+      }
+
+      document.addEventListener('enqueue', (e) => {
+        const { value, ttl } = e.detail;
+        skiplist.insert(value, ttl);
+        render(`insert("${value}", ttl=${ttl}s)`);
+      });
+
+      document.addEventListener('clear-queue', () => {
+        skiplist.clear();
+        render("clear()");
+        ops.clearHistory();
+      });
+
+      render("initial()");
+    }
+
+    main();
+  </script>
 </head>
 
 <body class="font-sans max-w-3xl mx-auto p-6 text-gray-800 bg-white prose">
-    <navbar-component></navbar-component>
-    <h1 class="text-2xl font-semibold mb-2">Skip List with Expiry Visualizer</h1>
-    <p class="text-gray-600 mb-4">A time-indexed skip list that removes expired items based on TTL.</p>
+  <navbar-component></navbar-component>
+  <h1 class="text-2xl font-semibold mb-2">Skip List with Expiry Visualizer</h1>
+  <p class="text-gray-600 mb-4">A time-indexed skip list that removes expired items based on TTL.</p>
 
-    <skiplist-expiry-command-ribbon class="block my-4"></skiplist-expiry-command-ribbon>
-    <skiplist-expiry-visual class="block my-4"></skiplist-expiry-visual>
-    <skiplist-expiry-operations-window class="block my-4"></skiplist-expiry-operations-window>
-    <skiplist-expiry-pseudo-code-visual class="block my-4"></skiplist-expiry-pseudo-code-visual>
-
-    <script type="module">
-        // Mock skip list logic for demonstration
-        let list = [];
-
-        function pruneExpired() {
-            const now = Date.now();
-            list = list.filter(node => node.expires > now);
-        }
-
-        function getState() {
-            pruneExpired();
-            return list.map(node => ({ value: node.value }));
-        }
-
-        const ribbon = document.querySelector('skiplist-expiry-command-ribbon');
-        const visual = document.querySelector('skiplist-expiry-visual');
-        const ops = document.querySelector('skiplist-expiry-operations-window');
-
-        await Promise.all([visual.ready, ops.ready]);
-
-        function render(label) {
-            const state = getState();
-            visual.update(state);
-            ops.addEntry(label, state);
-            ribbon.setQueueEmptyState(state.length === 0);
-        }
-
-        document.addEventListener('enqueue', (e) => {
-            const value = e.detail;
-            const ttl = 5000; // 5 seconds TTL
-            list.push({ value, expires: Date.now() + ttl });
-            render(`insert("${value}", ttl=5s)`);
-        });
-
-        document.addEventListener('clear-queue', () => {
-            list = [];
-            render('clear()');
-            ops.clearHistory();
-        });
-
-        // Hotkeys
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Delete') {
-                document.dispatchEvent(new CustomEvent('clear-queue'));
-            }
-        });
-
-        render('initial()');
-    </script>
+  <skiplist-expiry-command-ribbon class="block my-4"></skiplist-expiry-command-ribbon>
+  <skiplist-expiry-visual class="block my-4"></skiplist-expiry-visual>
+  <skiplist-expiry-operations-window class="block my-4"></skiplist-expiry-operations-window>
+  <skiplist-expiry-pseudo-code-visual class="block my-4"></skiplist-expiry-pseudo-code-visual>
 </body>
 
 </html>

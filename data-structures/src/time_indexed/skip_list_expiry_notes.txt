@@ -1,1 +1,61 @@
 Skip Lists wiki - https://en.wikipedia.org/wiki/Skip_list
+
+===================================
+SkipListExpiry - Time Indexed Notes
+===================================
+
+This data structure is a time-bucketed skip list approximation for managing expiring values.
+
+Important Design Notes:
+
+- Buckets are fixed-length time slices (e.g. 10 seconds each).
+- Each inserted value is assigned to a bucket based on its `expiry timestamp`.
+- The structure does **not** automatically check system time or prune expired data.
+- Instead, it assumes time progresses when `expire_front()` is explicitly called.
+
+  This simulates time advancement by:
+  1. Removing the earliest (front) bucket.
+  2. Shifting all buckets forward (append new empty one at the end).
+  3. Removing all items in the popped bucket.
+
+Expectations for Use:
+
+- `expire_front()` should be called periodically, ideally once per `resolution_secs`.
+- This can be done in a loop, via a scheduler, or interactively (e.g. UI button).
+- Querying `.values()` will return all active items (not yet expired).
+- Insertions past the valid bucket range are silently ignored.
+
+Usage Scenario:
+
+- For fixed TTL expiration scheduling (e.g. caching, timers, expiry queues).
+- Works best in discrete-tick or manually-controlled environments.
+
+UI Integration:
+
+- Do **not** use real-time tickers (like `setInterval`) unless explicitly simulating time.
+- Let the user manually invoke ticks to better reflect the data structure's intent.
+
+            ┌─────────────────────────────┐
+            │   SkipListExpiry Structure  │
+            └─────────────────────────────┘
+                       (internal)
+
+Time Buckets (VecDeque of BTreeSets):
+
+Index:     [0]         [1]         [2]         [3]         [4]
+Time:   now+0s     now+10s     now+20s     now+30s     now+40s
+        ┌─────┐     ┌─────┐     ┌─────┐     ┌─────┐     ┌─────┐
+        │ A   │     │ B   │     │     │     │ D   │     │     │
+        │ C   │     └─────┘     └─────┘     └─────┘     └─────┘
+        └─────┘
+
+     ↑
+bucket_time
+
+          ↓
+┌─────────────────────────────┐
+│ Background Process (Ticker) │
+├─────────────────────────────┤
+│ Every `resolution_secs`...  │
+│    skiplist.expire_front(); │
+└─────────────────────────────┘

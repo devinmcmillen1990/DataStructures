@@ -1,15 +1,7 @@
 use data_structures::queue::vec_functional_queue::VecFunctionalQueue;
 use serde::{Deserialize, Serialize};
+use serde_wasm_bindgen::to_value;
 use wasm_bindgen::prelude::*;
-
-/*
-    TODO:
-        1. Setup SEO to make this searchable (Maybe JS)
-        2. Replace custom CSS with TailWindCSS (Maybe JS)
-        3. Ensure is mobile friendly (Maybe JS)
-        4. Add "Buy me a Coffee" (Maybe JS)
-        5. Add Advertisements (Maybe JS)
-*/
 
 #[derive(Serialize, Deserialize)]
 pub struct QueueState {
@@ -39,7 +31,7 @@ impl VecFunctionalQueueVisual {
         match self.inner.dequeue() {
             Some((val, next)) => {
                 self.inner = next;
-                JsValue::from_serde(&val).unwrap()
+                to_value(&val).unwrap()
             }
             None => JsValue::NULL,
         }
@@ -50,6 +42,6 @@ impl VecFunctionalQueueVisual {
             front: self.inner.front.clone(),
             rear: self.inner.rear.clone(),
         };
-        JsValue::from_serde(&state).unwrap()
+        to_value(&state).unwrap()
     }
 }

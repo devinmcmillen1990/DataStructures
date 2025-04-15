@@ -1,25 +1,19 @@
-<!-- skiplist-expiry-command-ribbon.html -->
 <div class="flex flex-wrap gap-2 items-center">
     <input id="valueInput" type="text" placeholder="Enter value..."
         class="border px-2 py-1 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+
+    <select id="ttlSelect" class="px-2 py-1 border rounded text-sm">
+        <option value="1000">1s</option>
+        <option value="5000">5s</option>
+        <option value="10000">10s</option>
+        <option value="30000">30s</option>
+        <option value="60000">60s</option>
+    </select>
+
     <button id="enqueueButton" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">
         Insert
     </button>
     <button id="clearButton" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm">
         Clear
     </button>
-</div>
-
-<!-- skiplist-expiry-operations-window.html -->
-<div class="w-full border border-gray-300 rounded-md p-4 bg-white shadow-sm space-y-4">
-    <div class="flex flex-wrap justify-between items-center gap-2">
-        <strong class="text-gray-700 text-base">Current State Version:</strong>
-        <span id="versionCounter" class="text-blue-600 font-mono text-sm">0</span>
-    </div>
-
-    <h2 class="text-lg font-semibold text-gray-800 border-b border-gray-200 pb-1">
-        Skiplist Operation History
-    </h2>
-
-    <div id="history" class="space-y-2 max-h-[20rem] overflow-y-auto pr-2"></div>
 </div>

@@ -1,15 +1,8 @@
-/*
-    TODO:
-        1. Setup SEO to make this searchable (Maybe JS)
-        2. Replace custom CSS with TailWindCSS (Maybe JS)
-        3. Ensure is mobile friendly (Maybe JS)
-        4. Add "Buy me a Coffee" (Maybe JS)
-        5. Add Advertisements (Maybe JS)
-*/
+use chrono::Utc;
 use data_structures::time_indexed::skip_list_expiry::SkipListExpiry;
+use serde::{Deserialize, Serialize};
+use serde_wasm_bindgen::to_value;
 use wasm_bindgen::prelude::*;
-use serde::{Serialize, Deserialize};
-use std::time::{Duration, SystemTime};
 
 #[derive(Serialize, Deserialize)]
 pub struct SkipListState {
@@ -25,24 +18,26 @@ pub struct SkipListExpiryVisual {
 impl SkipListExpiryVisual {
     #[wasm_bindgen(constructor)]
     pub fn new() -> Self {
+        // 64 buckets, 1 second resolution
         Self {
-            inner: SkipListExpiry::new(),
+            inner: SkipListExpiry::new(64, 1),
         }
     }
 
+    #[wasm_bindgen]
     pub fn insert(&mut self, value: String, ttl_secs: u64) {
-        let expire_at = SystemTime::now()
-            .checked_add(Duration::from_secs(ttl_secs))
-            .unwrap();
+        let expire_at = Utc::now().timestamp() + ttl_secs as i64;
         self.inner.insert(value, expire_at);
     }
 
-    pub fn remove_expired(&mut self) {
-        self.inner.remove_expired();
+    #[wasm_bindgen]
+    pub fn tick(&mut self) {
+        self.inner.expire_front();
     }
 
+    #[wasm_bindgen]
     pub fn state(&self) -> JsValue {
-        let values = self.inner.values().cloned().collect::<Vec<_>>();
-        JsValue::from_serde(&SkipListState { values }).unwrap()
+        let values = self.inner.values();
+        to_value(&SkipListState { values }).unwrap()
     }
 }

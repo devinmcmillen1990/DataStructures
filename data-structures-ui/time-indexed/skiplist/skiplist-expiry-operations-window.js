@@ -12,30 +12,44 @@ class SkiplistExpiryOperationsWindow extends HTMLElement {
         this.shadowRoot.innerHTML = html;
     }
 
-    addEntry(label, state) {
+    setCurrentState(state) {
+        // Optionally handle live state updates elsewhere
+    }
+
+    addEntry(label, state, expiresAt = null) {
         this.version++;
-        const versionCounter = this.shadowRoot.getElementById('versionCounter');
-        if (versionCounter) versionCounter.textContent = this.version;
-
-        const historyDiv = this.shadowRoot.getElementById('history');
-        if (!historyDiv) return;
-
-        const div = document.createElement('div');
-        div.className = 'border border-gray-200 rounded p-2 bg-gray-50';
-        div.innerHTML = `
-        <div class="text-sm font-semibold text-gray-700">${this.version}. ${label}</div>
-        <code class="block text-xs text-gray-600 bg-white mt-1 p-1 rounded overflow-x-auto">${JSON.stringify(state)}</code>
-      `;
-
-        historyDiv.prepend(div);
+        this.history.push({ label, state, expiresAt });
+        this.renderHistory();
     }
 
     clearHistory() {
-        const historyDiv = this.shadowRoot.getElementById('history');
-        if (historyDiv) historyDiv.innerHTML = '';
+        this.history = [];
         this.version = 0;
-        const versionCounter = this.shadowRoot.getElementById('versionCounter');
-        if (versionCounter) versionCounter.textContent = '0';
+        this.renderHistory();
+    }
+
+    renderHistory() {
+        const historyDiv = this.shadowRoot.getElementById('history');
+        if (!historyDiv) return;
+
+        historyDiv.innerHTML = '';
+
+        [...this.history].reverse().forEach((entry, index) => {
+            const div = document.createElement('div');
+            div.className = 'border border-gray-200 rounded p-2 bg-gray-50';
+
+            const timestamp = entry.expiresAt
+                ? `expires at ${entry.expiresAt.toLocaleTimeString()}`
+                : new Date().toLocaleString();
+
+            div.innerHTML = `
+          <div class="text-sm font-semibold text-gray-700">${this.version - index}. ${entry.label}</div>
+          <div class="text-xs text-gray-500">${timestamp}</div>
+          <code class="block text-xs text-gray-600 bg-white mt-1 p-1 rounded overflow-x-auto">${JSON.stringify(entry.state)}</code>
+        `;
+
+            historyDiv.appendChild(div);
+        });
     }
 }
 

@@ -1,0 +1,9 @@
+1. Setup quick description of the algorithm to include some external source activating the expire method.
+2. Setup a timed-ticker (provide warning on why this is a bad practice).
+3. Setup button to invoke expire_front() (Let the user know that this should be invoked during the process)
+4. Activate ticker when there are values and deactivate ticker otherwise.
+5. Fix Visual (Have it try to match data-structures/src/time_indexed/skip_list_expiry_notes.txt)
+6. Fix the Operations Window
+7. Update pseudo code to include details about the external click.
+8. Get official paper or resources for this algorithm. (THIS IS REALLY MORE OF AN ALGORITHM).
+9. Setup SEO crap.
