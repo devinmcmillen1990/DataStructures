@@ -3,13 +3,22 @@ name = "algorithms"
 version = "0.1.0"
 edition = "2021"
 
+
 [dependencies]
 chrono = "0.4"
+ahash = "0.8"
 
 [dev-dependencies]
 criterion = "0.5"
 rand = "0.8" # for generating random TTLs
 
+
 [[bench]]
-name = "time_indexed_bench"
+name = "time_indexed_bench_skip_list_expiry_all"
+harness = false
+[[bench]]
+name = "time_indexed_bench_skip_list_expiry_enhanced"
+harness = false
+[[bench]]
+name = "time_indexed_bench_skip_list_expiry_enhanced2"
 harness = false
