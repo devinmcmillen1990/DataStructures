@@ -8,10 +8,10 @@ use std::sync::{Arc, RwLock};
 /// and maintaining precision without fixed-size buckets.
 #[derive(Clone)]
 pub struct EnhancedSkipListExpiry4<T: Eq + Hash + Clone + Ord> {
-    inner: Arc<RwLock<Inner<T>>>,
+    inner: Arc<RwLock<EnhancedSkipListInner4<T>>>,
 }
 
-struct Inner<T: Eq + Hash + Clone + Ord> {
+struct EnhancedSkipListInner4<T: Eq + Hash + Clone + Ord> {
     expiry_map: BTreeMap<usize, IndexSet<T>>,
     id_to_expiry: IndexSet<(T, usize)>,
     len: usize,
@@ -20,7 +20,7 @@ struct Inner<T: Eq + Hash + Clone + Ord> {
 impl<T: Eq + Hash + Clone + Ord> EnhancedSkipListExpiry4<T> {
     pub fn new() -> Self {
         Self {
-            inner: Arc::new(RwLock::new(Inner {
+            inner: Arc::new(RwLock::new(EnhancedSkipListInner4 {
                 expiry_map: BTreeMap::new(),
                 id_to_expiry: IndexSet::new(),
                 len: 0,

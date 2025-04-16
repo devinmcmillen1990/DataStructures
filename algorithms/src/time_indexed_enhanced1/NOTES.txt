@@ -1,0 +1,7 @@
+!!! This enhancement is not built for concurrency and has no order preservation (Figure out if this is bad.)
+
+Fails at:
+Concurrency	Enhanced3+, ✅ E5
+Determinism	✅ New E5
+Testability	✅ New E5
+Scalability	✅ New E5
