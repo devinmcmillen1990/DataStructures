@@ -1,0 +1,15 @@
+[package]
+name = "algorithms"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+chrono = "0.4"
+
+[dev-dependencies]
+criterion = "0.5"
+rand = "0.8" # for generating random TTLs
+
+[[bench]]
+name = "time_indexed_bench"
+harness = false
