@@ -2,9 +2,10 @@ use algorithms::time_indexed::skip_list_expiry::SkipListExpiry;
 use algorithms::time_indexed_enhanced1::skip_list_expiry_enhanced1::EnhancedSkipListExpiry1;
 use algorithms::time_indexed_enhanced2::skip_list_expiry_enhanced2::EnhancedSkipListExpiry2;
 use algorithms::time_indexed_enhanced3::skip_list_expiry_enhanced3::EnhancedSkipListExpiry3;
+use algorithms::time_indexed_enhanced4::skip_list_expiry_enhanced4::EnhancedSkipListExpiry4;
 use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion};
 use rand::{thread_rng, Rng};
-use std::sync::{Arc, Mutex};
+use std::sync::Arc;
 use std::thread;
 use std::time::{SystemTime, UNIX_EPOCH};
 
@@ -74,6 +75,19 @@ fn bench_insert(c: &mut Criterion) {
                 });
             },
         );
+
+        group.bench_with_input(
+            BenchmarkId::new("EnhancedSkipListExpiry4", volume),
+            &volume,
+            |b, &volume| {
+                b.iter(|| {
+                    let skiplist = EnhancedSkipListExpiry4::new();
+                    for i in 0..volume {
+                        skiplist.insert(format!("Item-{i}"), now + (i % TTL));
+                    }
+                });
+            },
+        );
     }
 
     group.finish();
@@ -108,6 +122,18 @@ fn bench_tick(c: &mut Criterion) {
         });
     });
 
+    group.bench_function("EnhancedSkipListExpiry4 Tick 1000", |b| {
+        let skiplist = EnhancedSkipListExpiry4::new();
+        for i in 0..(ticks * 10) {
+            skiplist.insert(format!("Item-{i}"), now + (i % TTL));
+        }
+        b.iter(|| {
+            for t in 0..ticks {
+                black_box(skiplist.tick(now + t));
+            }
+        });
+    });
+
     group.finish();
 }
 
@@ -136,6 +162,32 @@ fn bench_real_world_sim(c: &mut Criterion) {
 
             for _ in 0..100 {
                 black_box(skiplist.tick());
+            }
+        });
+    });
+
+    group.bench_function("EnhancedSkipListExpiry4 Real World Sim", |b| {
+        b.iter(|| {
+            let skiplist = Arc::new(EnhancedSkipListExpiry4::new());
+            let mut handles = vec![];
+
+            for _ in 0..4 {
+                let s = Arc::clone(&skiplist);
+                handles.push(thread::spawn(move || {
+                    let mut rng = thread_rng();
+                    for i in 0..2500 {
+                        let ttl = rng.gen_range(1..300);
+                        s.insert(format!("Item-{}", i), current_unix_time() + ttl);
+                    }
+                }));
+            }
+
+            for handle in handles {
+                handle.join().unwrap();
+            }
+
+            for t in 0..100 {
+                black_box(skiplist.tick(current_unix_time() + t));
             }
         });
     });
