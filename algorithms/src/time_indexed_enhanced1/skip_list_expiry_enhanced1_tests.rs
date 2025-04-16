@@ -1,10 +1,10 @@
-use crate::time_indexed_enhanced::skip_list_expiry_enhanced::EnhancedSkipListExpiry;
+use crate::time_indexed_enhanced1::skip_list_expiry_enhanced1::EnhancedSkipListExpiry1;
 use chrono::Utc;
 
 #[test]
 fn test_insert_with_expiry_ticks() {
     let now = Utc::now().timestamp() as usize;
-    let skiplist = EnhancedSkipListExpiry::with_start_time(3, 1, now);
+    let skiplist = EnhancedSkipListExpiry1::with_start_time(3, 1, now);
 
     skiplist.insert("A".to_string(), now);
     skiplist.insert("B".to_string(), now + 1);
@@ -20,7 +20,7 @@ fn test_insert_with_expiry_ticks() {
 #[test]
 fn test_len_simulation() {
     let now = Utc::now().timestamp() as usize;
-    let skiplist = EnhancedSkipListExpiry::with_start_time(3, 1, now);
+    let skiplist = EnhancedSkipListExpiry1::with_start_time(3, 1, now);
 
     skiplist.insert("X".to_string(), now);
     skiplist.insert("Y".to_string(), now + 1);
@@ -38,7 +38,7 @@ fn test_len_simulation() {
 #[test]
 fn test_multiple_insert_same_bucket() {
     let now = Utc::now().timestamp() as usize;
-    let skiplist = EnhancedSkipListExpiry::with_start_time(2, 1, now);
+    let skiplist = EnhancedSkipListExpiry1::with_start_time(2, 1, now);
 
     skiplist.insert("1".to_string(), now);
     skiplist.insert("2".to_string(), now);
@@ -54,7 +54,7 @@ fn test_multiple_insert_same_bucket() {
 #[test]
 fn test_out_of_range_insert_ignored() {
     let now = Utc::now().timestamp() as usize;
-    let skiplist = EnhancedSkipListExpiry::with_start_time(2, 10, now);
+    let skiplist = EnhancedSkipListExpiry1::with_start_time(2, 10, now);
 
     skiplist.insert("TooEarly".to_string(), now - 100);
     skiplist.insert("TooLate".to_string(), now + 100);
@@ -65,7 +65,7 @@ fn test_out_of_range_insert_ignored() {
 #[test]
 fn test_duplicate_insert_ignored() {
     let now = Utc::now().timestamp() as usize;
-    let skiplist = EnhancedSkipListExpiry::with_start_time(3, 1, now);
+    let skiplist = EnhancedSkipListExpiry1::with_start_time(3, 1, now);
 
     skiplist.insert("dup".to_string(), now);
     skiplist.insert("dup".to_string(), now);
@@ -76,7 +76,7 @@ fn test_duplicate_insert_ignored() {
 #[test]
 fn test_large_volume() {
     let now = Utc::now().timestamp() as usize;
-    let skiplist = EnhancedSkipListExpiry::with_start_time(10, 5, now);
+    let skiplist = EnhancedSkipListExpiry1::with_start_time(10, 5, now);
 
     for i in 0..10_000 {
         skiplist.insert(format!("Item-{i}"), now + (i % 50));

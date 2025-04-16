@@ -4,12 +4,12 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{Arc, RwLock};
 
 #[derive(Debug, Clone)]
-pub struct EnhancedSkipListExpiry<T: Clone + Hash + Eq + Send + Sync + 'static> {
-    inner: Arc<RwLock<EnhancedSkipListInner<T>>>,
+pub struct EnhancedSkipListExpiry1<T: Clone + Hash + Eq + Send + Sync + 'static> {
+    inner: Arc<RwLock<EnhancedSkipListInner1<T>>>,
 }
 
 #[derive(Debug)]
-struct EnhancedSkipListInner<T: Clone + Eq + Hash> {
+struct EnhancedSkipListInner1<T: Clone + Eq + Hash> {
     buckets: Vec<Vec<T>>,
     id_to_bucket: HashMap<T, usize>,
     bucket_time: AtomicUsize,
@@ -17,14 +17,14 @@ struct EnhancedSkipListInner<T: Clone + Eq + Hash> {
     capacity: usize,
 }
 
-impl<T: Clone + Hash + Eq + Send + Sync + 'static> EnhancedSkipListExpiry<T> {
+impl<T: Clone + Hash + Eq + Send + Sync + 'static> EnhancedSkipListExpiry1<T> {
     pub fn new(num_buckets: usize, resolution_secs: usize) -> Self {
         Self::with_start_time(num_buckets, resolution_secs, 0)
     }
 
     pub fn with_start_time(num_buckets: usize, resolution_secs: usize, start_time: usize) -> Self {
         Self {
-            inner: Arc::new(RwLock::new(EnhancedSkipListInner {
+            inner: Arc::new(RwLock::new(EnhancedSkipListInner1 {
                 buckets: vec![Vec::with_capacity(32); num_buckets],
                 id_to_bucket: HashMap::with_capacity(1024),
                 bucket_time: AtomicUsize::new(start_time),
