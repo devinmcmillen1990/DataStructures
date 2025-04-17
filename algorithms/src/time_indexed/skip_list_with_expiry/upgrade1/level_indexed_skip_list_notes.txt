@@ -1,0 +1,99 @@
+===========================
+📘 LevelIndexedSkipList Notes
+===========================
+
+🎯 Goal:
+A hierarchical, time-aware data structure inspired by skip lists, where items are inserted into "levels" based on their expiration time. Lower levels = soon-to-expire, higher levels = longer-term scheduling.
+
+---
+
+🧱 Structure Overview:
+
+- Vec<BTreeSet<T>> → each index is a level (0 = soonest, num_levels-1 = farthest)
+- id_to_level: HashMap<T, usize> → tracks which level an ID is currently in
+- insert(id, level): places id in the given level bucket
+- expire_front(): finds first non-empty level, expires its contents
+
+---
+
+📊 Visual:
+
+Time cascades from top to bottom like an hourglass. Items fall closer to the base as expiration nears.
+
+Top Level (coarse expiry)
+        ┌──────────────┐
+Level 3 │ [ ]          │  ← Longest-living items
+        └──────────────┘
+Level 2 ┌──────────────┐
+        │ [ ]          │
+        └──────────────┘
+Level 1 ┌──────────────┐
+        │ [ ]          │
+        └──────────────┘
+Level 0 ┌──────────────┐
+        │ [A, B, C]    │  ← Soonest to expire
+        └──────────────┘
+           ↑  ↑  ↑
+     expire_front() will expire all items in Level 0
+
+---
+
+🧠 Key Rules:
+
+• insert(id, level):
+    - Removes the item from its previous level (if exists)
+    - Adds it to the new level bucket
+
+• expire_front():
+    - Scans levels in order (0 to N)
+    - Returns and clears first non-empty level
+    - Cleans up id_to_level mapping
+
+• promote_or_cleanup(): [optional]
+    - Could periodically shift items from coarse to fine levels as time passes
+
+---
+
+🔁 Example Flow:
+
+1. insert("A", 2)
+2. insert("B", 0)
+3. insert("C", 1)
+
+Levels:
+Level 0 → [B]
+Level 1 → [C]
+Level 2 → [A]
+
+4. expire_front() → returns ["B"]
+5. expire_front() → returns ["C"]
+6. expire_front() → returns ["A"]
+7. expire_front() → returns []
+
+---
+
+🧰 Implementation Notes:
+
+- Each level uses a BTreeSet for:
+  - Sorted iteration (if needed)
+  - Fast insertion/removal
+- id_to_level ensures uniqueness and O(1) lookup during expiration
+- Vec<BTreeSet<T>> allows easy expansion or compression of levels
+
+---
+
+✅ Advantages:
+
+- Simpler than traditional skip lists
+- Better than flat bucket systems for unevenly distributed timeouts
+- Cascading structure makes it flexible for multi-resolution timing
+
+---
+
+⚠️ Limitations:
+
+- Not thread-safe (global state)
+- Items must be explicitly promoted if time resolution drifts
+- Optimal level computation must be externally managed
+
+---

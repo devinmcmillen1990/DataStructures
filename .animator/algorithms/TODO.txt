@@ -1,0 +1,2 @@
+skip_list_expiry.py still isn't quite right. Its super close. Gemini is better at it than ChatGPT.
+skip_list_expiry.py only works with single elements. Need one with multiple elements.
