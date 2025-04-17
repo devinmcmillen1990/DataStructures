@@ -8,6 +8,14 @@ use crate::time_indexed::skip_list_with_expiry::testing::index_based::edge_tests
     edge_test_insert_exactly_on_boundary, edge_test_len_decreases_after_expiry,
     edge_test_zero_items_expire_empty,
 };
+use crate::time_indexed::skip_list_with_expiry::testing::index_based::threading_stress_tests::{
+    threading_stress_test_concurrent_expiry_behavior, threading_stress_test_concurrent_insertions,
+    threading_stress_test_concurrent_mixed_read_write,
+};
+use crate::time_indexed::skip_list_with_expiry::testing::index_based::threading_tests::{
+    threading_test_concurrent_expiry_behavior, threading_test_concurrent_insertions,
+    threading_test_concurrent_mixed_read_write,
+};
 use crate::time_indexed::skip_list_with_expiry::upgrade1::level_indexed_skip_list::LevelIndexedSkipList;
 
 /**
@@ -89,32 +97,35 @@ fn test_duplicate_insert_overwrite() {
 //     // Not Applicable
 // }
 
-// // TODO: Provide description why this is not applicable
-// #[test]
-// fn test_concurrent_insertions() {
-//     // Not Applicable
-// }
+#[test]
+fn test_concurrent_insertions() {
+    threading_test_concurrent_insertions(LevelIndexedSkipList::new(10))
+}
 
-// // TODO: Provide description why this is not applicable
-// #[test]
-// fn test_concurrent_expiry_behavior() {
-//     // Not Applicable
-// }
+#[test]
+fn test_concurrent_expiry_behavior() {
+    threading_test_concurrent_expiry_behavior(LevelIndexedSkipList::new(3))
+}
 
-// // TODO: Provide description why this is not applicable
-// #[test]
-// fn test_concurrent_insertions_stressed() {
-//     // Not Applicable
-// }
+#[test]
+fn test_concurrent_mixed_read_write() {
+    threading_test_concurrent_mixed_read_write(LevelIndexedSkipList::new(3))
+}
 
-// // TODO: Provide description why this is not applicable
-// #[test]
-// fn test_concurrent_expiry_behavior_stressed() {
-//     // Not Applicable
-// }
+#[test]
+#[ignore = "stress test"]
+fn test_concurrent_insertions_stressed() {
+    threading_stress_test_concurrent_insertions(LevelIndexedSkipList::new(100))
+}
 
-// // TODO: Provide description why this is not applicable
-// #[test]
-// fn test_concurrent_mixed_read_write_stressed() {
-//     // Not Applicable
-// }
+#[test]
+#[ignore = "stress test"]
+fn test_concurrent_expiry_behavior_stressed() {
+    threading_stress_test_concurrent_expiry_behavior(LevelIndexedSkipList::new(100))
+}
+
+#[test]
+#[ignore = "stress test"]
+fn test_concurrent_mixed_read_write_stressed() {
+    threading_stress_test_concurrent_mixed_read_write(LevelIndexedSkipList::new(100))
+}
