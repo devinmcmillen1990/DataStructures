@@ -6,21 +6,18 @@ pub fn threading_stress_test_concurrent_insertions<E>(expiry: Arc<E>)
 where
     E: ConcurrentIndexBasedExpiry<String> + 'static,
 {
-    let mut handles = vec![];
+    let handles: Vec<_> = (0..100)
+        .map(|i| {
+            let expiry_ref = Arc::clone(&expiry);
+            let id = format!("ID-{}", i);
+            thread::spawn(move || {
+                expiry_ref.insert(id, i % 5);
+            })
+        })
+        .collect();
 
-    for i in 0..100 {
-        let expiry_ref = Arc::clone(&expiry);
-        let id = format!("StressItem-{}", i);
-
-        let handle = thread::spawn(move || {
-            expiry_ref.insert(id, i % 10);
-        });
-
-        handles.push(handle);
-    }
-
-    for handle in handles {
-        handle.join().unwrap();
+    for h in handles {
+        h.join().unwrap();
     }
 
     assert_eq!(expiry.len(), 100);
@@ -30,23 +27,21 @@ pub fn threading_stress_test_concurrent_expiry_behavior<E>(expiry: Arc<E>)
 where
     E: ConcurrentIndexBasedExpiry<String> + 'static,
 {
-    // Preload values
-    for i in 0..50 {
-        expiry.insert(format!("Preload-{}", i), i % 5);
+    for i in 0..100 {
+        expiry.insert(format!("Preload-{}", i), i % 4);
     }
 
-    let mut handles = vec![];
+    let handles: Vec<_> = (0..10)
+        .map(|_| {
+            let expiry_ref = Arc::clone(&expiry);
+            thread::spawn(move || {
+                let _ = expiry_ref.expire_front();
+            })
+        })
+        .collect();
 
-    for _ in 0..50 {
-        let expiry_ref = Arc::clone(&expiry);
-        let handle = thread::spawn(move || {
-            let _ = expiry_ref.expire_front();
-        });
-        handles.push(handle);
-    }
-
-    for handle in handles {
-        handle.join().unwrap();
+    for h in handles {
+        h.join().unwrap();
     }
 
     assert!(expiry.is_empty());
@@ -56,33 +51,26 @@ pub fn threading_stress_test_concurrent_mixed_read_write<E>(expiry: Arc<E>)
 where
     E: ConcurrentIndexBasedExpiry<String> + 'static,
 {
-    let mut handles = vec![];
-
-    // Mixed insertions
-    for i in 0..50 {
-        let expiry_ref = Arc::clone(&expiry);
-        let id = format!("StressI-{}", i);
-
-        let handle = thread::spawn(move || {
-            expiry_ref.insert(id, i % 5);
-        });
-
-        handles.push(handle);
+    for i in 0..100 {
+        expiry.insert(format!("Initial-{}", i), i % 3);
     }
 
-    // Mixed expirations
-    for _ in 0..50 {
-        let expiry_ref = Arc::clone(&expiry);
-        let handle = thread::spawn(move || {
-            let _ = expiry_ref.expire_front();
-        });
+    let handles: Vec<_> = (0..200)
+        .map(|i| {
+            let expiry_ref = Arc::clone(&expiry);
+            thread::spawn(move || {
+                if i % 2 == 0 {
+                    expiry_ref.insert(format!("ID-{}", i), i % 5);
+                } else {
+                    let _ = expiry_ref.expire_front();
+                }
+            })
+        })
+        .collect();
 
-        handles.push(handle);
+    for h in handles {
+        h.join().unwrap();
     }
 
-    for handle in handles {
-        handle.join().unwrap();
-    }
-
-    assert!(expiry.len() <= 50);
+    assert!(expiry.len() <= 100);
 }

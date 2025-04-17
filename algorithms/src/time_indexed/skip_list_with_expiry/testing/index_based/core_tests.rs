@@ -22,6 +22,7 @@ where
     assert!(expiry.expire_front().is_empty());
 }
 
+// TODO: Out of range goes into final bucket
 pub fn core_test_ignore_out_of_range_items<E>(mut expiry: E)
 where
     E: IndexBasedExpiry<String>,
@@ -29,8 +30,8 @@ where
     expiry.insert("TooHigh".to_string(), 100);
     expiry.insert("TooHigh2".to_string(), 5);
 
-    assert_eq!(expiry.len(), 0);
-    assert!(expiry.is_empty());
+    assert_eq!(expiry.len(), 2);
+    assert!(!expiry.is_empty());
 }
 
 pub fn core_test_len_and_is_empty_consistency<E>(mut expiry: E)

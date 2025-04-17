@@ -3,3 +3,4 @@
                 -> Benchmarks
                 -> Algorithm steps (including edge cases)
                 -> Update test applicability table
+2. _notes.txt   -> Verify content

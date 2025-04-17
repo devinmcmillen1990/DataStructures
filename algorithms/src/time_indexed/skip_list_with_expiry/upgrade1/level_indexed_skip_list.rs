@@ -2,7 +2,7 @@ use crate::time_indexed::skip_list_with_expiry::traits::IndexBasedExpiry;
 use std::collections::{BTreeSet, HashMap};
 use std::hash::Hash;
 
-const DEBUGGING_ENABLED: bool = true;
+const DEBUGGING_ENABLED: bool = false;
 
 /// A non-thread-safe skip list based on levels rather than time.
 #[derive(Debug)]
@@ -31,24 +31,26 @@ where
     /// Inserts an ID into a specific level. If it already exists, it is overwritten.
     fn insert(&mut self, id: T, level: usize) {
         if level >= self.buckets.len() && DEBUGGING_ENABLED {
-            eprintln!(
-                "[LevelIndexedSkipList] Ignoring insert: level {} out of bounds.",
-                level
-            );
-            return;
+            eprintln!("Insert level {} out of bounds. Using max level {}.", level, self.buckets.len() - 1);
         }
+
+        let insertion_level = if level >= self.buckets.len() {
+            self.buckets.len() - 1
+        } else {
+            level
+        };
 
         if let Some(prev_level) = self.id_to_level.get(&id) {
             self.buckets[*prev_level].remove(&id);
         }
 
-        self.buckets[level].insert(id.clone());
-        self.id_to_level.insert(id.clone(), level);
+        self.buckets[insertion_level].insert(id.clone());
+        self.id_to_level.insert(id.clone(), insertion_level);
 
         if DEBUGGING_ENABLED {
             eprintln!(
                 "[LevelIndexedSkipList] Inserted {:?} at level {}",
-                id, level
+                id, insertion_level
             );
             eprintln!("[LevelIndexedSkipList] Current buckets: {:?}", self.buckets);
         }
