@@ -15,7 +15,7 @@ use crate::time_indexed::skip_list_with_expiry::testing::time_based::edge_tests:
  */
 #[test]
 fn test_basic_insertion_and_expiry() {
-    core_test_basic_insertion_and_expiry(SkipListExpiry::new(3, 1));
+    core_test_basic_insertion_and_expiry(SkipListExpiry::new(3, 1))
 }
 
 #[test]

@@ -1,8 +1,11 @@
 #[cfg(test)]
-mod core_tests;
+pub mod core_tests;
 
 #[cfg(test)]
-mod edge_tests;
+pub mod edge_tests;
 
 #[cfg(test)]
-mod threading_tests;
+pub mod threading_tests;
+
+#[cfg(test)]
+pub mod threading_stress_tests;
