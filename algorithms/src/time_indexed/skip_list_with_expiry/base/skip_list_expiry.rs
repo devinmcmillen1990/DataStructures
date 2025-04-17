@@ -5,6 +5,8 @@ use std::sync::{Arc, Mutex};
 
 use crate::time_indexed::skip_list_with_expiry::traits::TimeBasedExpiry;
 
+const DEBUGGING_ENABLED: bool = false;
+
 /// A concurrent, time‑bucketed expiry structure.
 /// Each bucket covers `[start_time + n·resolution , start_time + (n+1)·resolution)`;
 /// values falling exactly on a boundary are placed in the *next* bucket.
@@ -54,10 +56,12 @@ where
         let offset = (diff + inner.resolution_secs - 1) / inner.resolution_secs;
 
         if offset < 0 || offset as usize >= inner.buckets.len() {
-            eprintln!(
-                "[SkipListExpiry] Ignoring insert: out of range. id={:?}, time={}, offset={}",
-                id, close_time, offset
-            );
+            if DEBUGGING_ENABLED {
+                eprintln!(
+                    "[SkipListExpiry] Ignoring insert: out of range. id={:?}, time={}, offset={}",
+                    id, close_time, offset
+                );
+            }
             return;
         }
 
