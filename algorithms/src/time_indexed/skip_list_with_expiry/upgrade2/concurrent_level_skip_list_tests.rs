@@ -1,8 +1,8 @@
-use crate::time_indexed::skip_list_with_expiry::testing::index_based::threading_stress_tests::{
+use crate::time_indexed::skip_list_with_expiry::testing::index_based::concurrent_threading_stress_tests::{
     threading_stress_test_concurrent_expiry_behavior, threading_stress_test_concurrent_insertions,
     threading_stress_test_concurrent_mixed_read_write,
 };
-use crate::time_indexed::skip_list_with_expiry::testing::index_based::threading_tests::{
+use crate::time_indexed::skip_list_with_expiry::testing::index_based::concurrent_threading_tests::{
     threading_test_concurrent_expiry_behavior, threading_test_concurrent_insertions,
     threading_test_concurrent_mixed_read_write,
 };

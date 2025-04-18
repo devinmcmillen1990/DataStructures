@@ -15,5 +15,5 @@ rand = "0.8" # for generating random TTLs
 
 
 [[bench]]
-name = "time_indexed_bench_skip_list_expiry"
+name = "time_indexed_bench_base_skip_list_expiry"
 harness = false
