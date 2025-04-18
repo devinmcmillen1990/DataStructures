@@ -75,23 +75,23 @@ where
     assert_eq!(expiry.len(), 0);
 }
 
-// pub fn edge_test_insert_and_expire_mixed_order<E>(mut expiry: E)
-// where
-//     E: TimeBasedExpiry<String>,
-// {
-//     // TODO: write out implementation
-// }
+pub fn edge_test_insert_and_expire_mixed_order<E>(mut expiry: E)
+where
+    E: TimeBasedExpiry<String>,
+{
+    // TODO: write out implementation
+}
 
-// pub fn edge_test_expire_partial_and_continue<E>(mut expiry: E)
-// where
-//     E: TimeBasedExpiry<String>,
-// {
-//     // TODO: write out implementation
-// }
+pub fn edge_test_expire_partial_and_continue<E>(mut expiry: E)
+where
+    E: TimeBasedExpiry<String>,
+{
+    // TODO: write out implementation
+}
 
-// pub fn edge_test_reschedule_existing_item<E>(mut expiry: E)
-// where
-//     E: TimeBasedExpiry<String>,
-// {
-//     // TODO: write out implementation
-// }
+pub fn edge_test_reschedule_existing_item<E>(mut expiry: E)
+where
+    E: TimeBasedExpiry<String>,
+{
+    // TODO: write out implementation
+}

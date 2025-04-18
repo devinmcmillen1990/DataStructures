@@ -3,7 +3,8 @@ use std::collections::BTreeSet;
 use std::fmt::Debug;
 use std::sync::{Arc, RwLock};
 
-const DEBUGGING_ENABLED: bool = true;
+// TODO: Get better Debugging statements to fully describe the algorithm
+const DEBUGGING_ENABLED: bool = false;
 
 #[derive(Debug)]
 pub struct ConcurrentLevelSkipList<T>
