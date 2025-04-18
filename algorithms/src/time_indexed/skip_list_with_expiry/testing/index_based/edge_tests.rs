@@ -22,8 +22,8 @@ where
     let last_level = 3;
     expiry.insert("EdgeCase".to_string(), last_level);
 
-    let expired0 = expiry.expire_front();
-    let expired1 = expiry.expire_front();
+    let _ = expiry.expire_front();
+    let _ = expiry.expire_front();
     let expired = expiry.expire_front();
 
     assert_eq!(expired, Vec::<String>::new());

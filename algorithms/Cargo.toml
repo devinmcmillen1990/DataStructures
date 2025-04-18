@@ -21,3 +21,11 @@ harness = false
 [[bench]]
 name = "time_indexed_bench_upgrade1_level_indexed_skip_list"
 harness = false
+
+[[bench]]
+name = "time_indexed_bench_upgrade2_concurrent_level_skip_list"
+harness = false
+
+[[bench]]
+name = "time_indexed_bench_upgrade3_bucket_b_tree_map_expiry"
+harness = false

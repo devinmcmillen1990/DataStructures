@@ -7,7 +7,7 @@ use crate::time_indexed::skip_list_with_expiry::traits::{
     ConcurrentIndexBasedExpiry, ConcurrentTimeBasedExpiry,
 };
 
-const DEBUGGING_ENABLED: bool = true;
+const DEBUGGING_ENABLED: bool = false;
 const BUCKET_WIDTH: usize = 100;
 
 #[derive(Debug)]
@@ -166,10 +166,12 @@ where
 {
     fn insert(&self, id: T, timestamp: i64) {
         let bucket = (timestamp as usize) / BUCKET_WIDTH;
-        eprintln!(
-            "insert(timestamp={}, id={:?}) → bucket {}",
-            timestamp, id, bucket
-        );
+        if DEBUGGING_ENABLED {
+            eprintln!(
+                "insert(timestamp={}, id={:?}) → bucket {}",
+                timestamp, id, bucket
+            );
+        }
         self.insert_inner(id, bucket);
     }
 
