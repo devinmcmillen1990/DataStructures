@@ -1,5 +1,5 @@
-use algorithms::time_indexed::skip_list_with_expiry::upgrade3::bucket_b_tree_map_expiry::BucketBTreeMapExpiry;
-use algorithms::time_indexed::skip_list_with_expiry::traits::ConcurrentTimeBasedExpiry;
+use algorithms::self_expiring::skip_list_with_expiry::upgrade3::bucket_b_tree_map_expiry::BucketBTreeMapExpiry;
+use algorithms::self_expiring::skip_list_with_expiry::traits::ConcurrentTimeBasedExpiry;
 use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion};
 use std::sync::Arc;
 use std::time::{SystemTime, UNIX_EPOCH};
