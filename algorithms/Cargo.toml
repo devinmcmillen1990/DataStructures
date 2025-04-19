@@ -15,17 +15,17 @@ rand = "0.8" # for generating random TTLs
 
 
 [[bench]]
-name = "time_indexed_bench_base_skip_list_expiry"
+name = "time_indexed_bench_skip_list_expiry_base"
 harness = false
 
 [[bench]]
-name = "time_indexed_bench_upgrade1_level_indexed_skip_list"
+name = "time_indexed_bench_skip_list_expiry_upgrade1_level_indexed_skip_list"
 harness = false
 
 [[bench]]
-name = "time_indexed_bench_upgrade2_concurrent_level_skip_list"
+name = "time_indexed_bench_skip_list_expiry_upgrade2_concurrent_level_skip_list"
 harness = false
 
 [[bench]]
-name = "time_indexed_bench_upgrade3_bucket_b_tree_map_expiry"
+name = "time_indexed_bench_skip_list_expiry_upgrade3_bucket_b_tree_map_expiry"
 harness = false
