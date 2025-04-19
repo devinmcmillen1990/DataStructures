@@ -1,5 +1,5 @@
 use algorithms::self_expiring::skip_list_with_expiry::upgrade1::level_indexed_skip_list::LevelIndexedSkipList;
-use algorithms::self_expiring::skip_list_with_expiry::traits::IndexBasedExpiry;
+use algorithms::self_expiring::traits::IndexBasedExpiry;
 use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion};
 
 const BUCKETS: usize = 64;

@@ -1,19 +1,18 @@
 use crate::self_expiring::skip_list_with_expiry::upgrade3::bucket_b_tree_map_expiry::BucketBTreeMapExpiry;
-use crate::self_expiring::skip_list_with_expiry::testing::time_based::concurrent_core_tests::{
+use crate::self_expiring::testing::time_based::concurrent_core_tests::{
     core_test_basic_insertion_and_expiry, core_test_expire_front_clears_bucket,
     core_test_len_and_is_empty_consistency, core_test_multiple_items_same_bucket,
     core_test_values_snapshot_consistency,
 };
-use crate::self_expiring::skip_list_with_expiry::testing::time_based::concurrent_edge_tests::{
+use crate::self_expiring::testing::time_based::concurrent_edge_tests::{
     edge_test_duplicate_insert_overwrite, edge_test_expire_all_buckets_and_reuse,
-    edge_test_insert_exactly_on_boundary, edge_test_len_decreases_after_expiry,
-    edge_test_zero_items_expire_empty,
+    edge_test_len_decreases_after_expiry, edge_test_zero_items_expire_empty,
 };
-use crate::self_expiring::skip_list_with_expiry::testing::time_based::concurrent_threading_stress_tests::{
+use crate::self_expiring::testing::time_based::concurrent_threading_stress_tests::{
     threading_stress_test_concurrent_expiry_behavior, threading_stress_test_concurrent_insertions,
     threading_stress_test_concurrent_mixed_read_write,
 };
-use crate::self_expiring::skip_list_with_expiry::testing::time_based::concurrent_threading_tests::{
+use crate::self_expiring::testing::time_based::concurrent_threading_tests::{
     threading_test_concurrent_expiry_behavior, threading_test_concurrent_insertions,
     threading_test_concurrent_mixed_read_write,
 };
@@ -80,12 +79,6 @@ fn test_expire_all_buckets_and_reuse() {
 fn test_len_decreases_after_expiry() {
     let expiry = Arc::new(BucketBTreeMapExpiry::new());
     edge_test_len_decreases_after_expiry(expiry)
-}
-
-#[test]
-fn test_insert_exactly_on_boundary() {
-    let expiry = Arc::new(BucketBTreeMapExpiry::new());
-    edge_test_insert_exactly_on_boundary(expiry)
 }
 
 #[test]

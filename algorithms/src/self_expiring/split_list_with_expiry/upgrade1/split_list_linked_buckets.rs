@@ -3,7 +3,7 @@ use std::fmt::Debug;
 use std::hash::Hash;
 use std::sync::{Arc, RwLock};
 
-use crate::self_expiring::split_list_with_expiry::traits::ConcurrentTimeBasedExpiry;
+use crate::self_expiring::traits::ConcurrentTimeBasedExpiry;
 
 /// SplitListLinkedBuckets groups elements into buckets by timestamp in sorted order.
 /// Internally uses a BTreeMap<i64, Vec<T>> to maintain ordering and bucket grouping.

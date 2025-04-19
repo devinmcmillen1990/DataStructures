@@ -1,0 +1,7 @@
+1. README.md    -> Time Complexity Analysis
+                -> Space Complexity Analysis
+                -> Benchmarks
+                -> Algorithm steps (including edge cases)
+                -> Update test applicability table
+                -> Include note about possible side effects with insert at index inserting in last bucket.
+2. _notes.txt   -> Verify content

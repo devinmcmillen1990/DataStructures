@@ -1,5 +1,5 @@
 use algorithms::self_expiring::skip_list_with_expiry::upgrade2::concurrent_level_skip_list::ConcurrentLevelSkipList;
-use algorithms::self_expiring::skip_list_with_expiry::traits::ConcurrentIndexBasedExpiry;
+use algorithms::self_expiring::traits::ConcurrentIndexBasedExpiry;
 use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion};
 use std::sync::Arc;
 

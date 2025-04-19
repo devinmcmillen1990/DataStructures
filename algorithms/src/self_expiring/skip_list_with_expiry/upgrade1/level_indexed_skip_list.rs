@@ -1,4 +1,4 @@
-use crate::self_expiring::skip_list_with_expiry::traits::IndexBasedExpiry;
+use crate::self_expiring::traits::IndexBasedExpiry;
 use std::collections::{BTreeSet, HashMap};
 use std::hash::Hash;
 

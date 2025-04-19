@@ -1,5 +1,5 @@
 use algorithms::self_expiring::split_list_with_expiry::upgrade1::split_list_linked_buckets::SplitListLinkedBuckets;
-use algorithms::self_expiring::split_list_with_expiry::traits::ConcurrentTimeBasedExpiry;
+use algorithms::self_expiring::traits::ConcurrentTimeBasedExpiry;
 use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion};
 use std::time::{SystemTime, UNIX_EPOCH};
 

@@ -1,4 +1,4 @@
-use crate::self_expiring::skip_list_with_expiry::traits::ConcurrentIndexBasedExpiry;
+use crate::self_expiring::traits::ConcurrentIndexBasedExpiry;
 use std::collections::BTreeSet;
 use std::fmt::Debug;
 use std::sync::{Arc, RwLock};

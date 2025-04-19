@@ -1,9 +1,9 @@
 use crate::self_expiring::skip_list_with_expiry::upgrade2::concurrent_level_skip_list::ConcurrentLevelSkipList;
-use crate::self_expiring::skip_list_with_expiry::testing::index_based::concurrent_threading_stress_tests::{
+use crate::self_expiring::testing::index_based::concurrent_threading_stress_tests::{
     threading_stress_test_concurrent_expiry_behavior, threading_stress_test_concurrent_insertions,
     threading_stress_test_concurrent_mixed_read_write,
 };
-use crate::self_expiring::skip_list_with_expiry::testing::index_based::concurrent_threading_tests::{
+use crate::self_expiring::testing::index_based::concurrent_threading_tests::{
     threading_test_concurrent_expiry_behavior, threading_test_concurrent_insertions,
     threading_test_concurrent_mixed_read_write,
 };

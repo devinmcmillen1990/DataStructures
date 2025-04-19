@@ -1,5 +1,5 @@
 use algorithms::self_expiring::skip_list_with_expiry::base::skip_list_expiry::SkipListExpiry;
-use algorithms::self_expiring::skip_list_with_expiry::traits::TimeBasedExpiry;
+use algorithms::self_expiring::traits::TimeBasedExpiry;
 use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion};
 use std::time::{SystemTime, UNIX_EPOCH};
 

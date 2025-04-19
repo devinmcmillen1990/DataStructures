@@ -3,7 +3,7 @@ use std::collections::{BTreeSet, HashMap, VecDeque};
 use std::hash::Hash;
 use std::sync::{Arc, Mutex};
 
-use crate::self_expiring::skip_list_with_expiry::traits::TimeBasedExpiry;
+use crate::self_expiring::traits::TimeBasedExpiry;
 
 // TODO: Get better Debugging statements to fully describe the algorithm
 

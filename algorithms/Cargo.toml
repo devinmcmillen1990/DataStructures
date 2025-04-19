@@ -8,6 +8,8 @@ edition = "2021"
 chrono = "0.4"
 ahash = "0.8"
 indexmap = "2.2"
+parking_lot = "0.12.3"
+num_cpus = "1"
 
 [dev-dependencies]
 criterion = "0.5"
@@ -36,4 +38,24 @@ harness = false
 
 [[bench]]
 name = "self_expiring_bench_split_list_expiry_upgrade1_split_list_linked_buckets"
+harness = false
+
+[[bench]]
+name = "self_expiring_bench_split_list_expiry_upgrade2_split_list_linked_buckets_parking_lot_expiry"
+harness = false
+
+[[bench]]
+name = "self_expiring_bench_split_list_expiry_upgrade3_split_list_fine_grained_buckets"
+harness = false
+
+[[bench]]
+name = "self_expiring_bench_split_list_expiry_upgrade4_split_list_fanout"
+harness = false
+
+[[bench]]
+name = "self_expiring_bench_split_list_expiry_upgrade5_split_list_fanout_thread_local_expiry"
+harness = false
+
+[[bench]]
+name = "self_expiring_bench_real_time_queues_prototype"
 harness = false

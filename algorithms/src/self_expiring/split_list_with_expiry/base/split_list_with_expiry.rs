@@ -1,8 +1,7 @@
 use std::collections::BTreeMap;
 use std::fmt::Debug;
 use std::sync::RwLock;
-
-use crate::self_expiring::split_list_with_expiry::traits::ConcurrentTimeBasedExpiry;
+use crate::self_expiring::traits::ConcurrentTimeBasedExpiry;
 
 /// Thread-safe split list structure using BTreeMap for time-based expiry
 #[derive(Debug)]

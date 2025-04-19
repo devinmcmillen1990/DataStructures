@@ -1,3 +1,5 @@
 1. time_indexed / split_list -> Make sure that the interface between all the iterations is the same if possible
     >> Update unit tests if necessary
     >> Update bench tests if necessary
+
+2. The traits are just duplicated. Move them to a centralized location.

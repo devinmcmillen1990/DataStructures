@@ -1,9 +1,8 @@
+use crate::self_expiring::traits::ConcurrentTimeBasedExpiry;
 use std::collections::{BTreeMap, HashMap};
 use std::fmt::Debug;
 use std::hash::Hash;
 use std::sync::RwLock;
-
-use crate::self_expiring::skip_list_with_expiry::traits::ConcurrentTimeBasedExpiry;
 
 const DEBUGGING_ENABLED: bool = false;
 const BUCKET_WIDTH: usize = 100;
